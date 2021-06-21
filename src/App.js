@@ -8,6 +8,7 @@ import "firebase/auth";
 import "firebase/firestore";
 
 import {getVLocation} from './Api'
+// import {showLocation} from "./showLocation";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDDP4UaX_T76Q1l4tGOmVebgbSTJhScj6E",
@@ -38,8 +39,22 @@ function App() {
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
     const [vLocations, setVLocations] = useState([]);
+    const [selectedLoc, setSelectedLoc] = useState(null);
 
     const db = firebase.firestore();
+
+    if(!vLocations) {
+
+        console.log("되나")
+        getVLocation()
+        .then(_info => {
+            console.log(_info, "얘는");
+            setVLocations(_info)
+        })
+
+        console.log(vLocations);
+        console.log("출력");
+    }
 
     const createAccount =(e)=> {
         e.preventDefault();
@@ -61,6 +76,12 @@ function App() {
             });
 
     }
+
+    // const locationCheck = (e) => {
+    //     console.log(e);
+    //     setSelectedLoc(e);
+    //     showLocation(e);
+    // }
 
     useEffect(()=>{
         getVLocation()
@@ -121,7 +142,6 @@ function App() {
                     </div>
                     <div className={"vaccineInfo"}>
                         <div id={"map"}>
-                            <h2>지도</h2>
                             <Map/>
                         </div>
                         <div id={"vaccinationLocation"}>
@@ -138,6 +158,7 @@ function App() {
                                                     <li>기관전화번호: {elem.orgTlno}</li>
                                                     <li>기관주소: {elem.orgZipaddr}</li>
                                                     <li>당일 휴무여부: {elem.hldyYn}</li>
+                                                    {/*<Button id="locationButton" variant="outlined" color="primary" onClick={()=>locationCheck(elem.orgZipaddr)}>위치 확인</Button>*/}
                                                 </ul>
                                             </div>);
                                     })
