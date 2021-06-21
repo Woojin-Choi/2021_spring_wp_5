@@ -47,6 +47,7 @@
   justify-content: center;
 
 }
+
 #map {
   height: 500px;
   width: 700px;
@@ -59,6 +60,16 @@
   width: 300px;
   padding: 50px;
   border: 2px solid cornflowerblue;
+}
+
+.location {
+  height: 450px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.locationBox {
+  border: 1px solid darkgray;
 }
 
 

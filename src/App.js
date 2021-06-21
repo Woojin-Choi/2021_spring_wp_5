@@ -7,6 +7,8 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 
+import {getVLocation} from './Api'
+
 const firebaseConfig = {
     apiKey: "AIzaSyDDP4UaX_T76Q1l4tGOmVebgbSTJhScj6E",
     authDomain: "venweb-final-project.firebaseapp.com",
@@ -16,7 +18,12 @@ const firebaseConfig = {
     appId: "1:484267133169:web:0315353ef85ef78efb8150"
 };
 
-firebase.initializeApp(firebaseConfig);
+
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}else {
+    firebase.app();
+}
 
 firebase.auth().onAuthStateChanged(function(user){
     if(user){
@@ -30,10 +37,12 @@ function App() {
 
     const [email, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
+    const [vLocations, setVLocations] = useState([]);
+
+    const db = firebase.firestore();
 
     const createAccount =(e)=> {
         e.preventDefault();
-        firebase.auth().signInWithPopup(firebase.auth())
 
         firebase.auth().createUserWithEmailAndPassword(email, password)
             .then((res)=>{
@@ -52,6 +61,32 @@ function App() {
             });
 
     }
+
+    useEffect(()=>{
+        getVLocation()
+            .then(_info => {
+                setVLocations(_info)
+            })
+    },[])
+    // const DBFUNC1 = () => { // db에 추가하는 함수수
+    //    db.collection("datas").add({
+    //         first: "1",
+    //         last: "2",
+    //         born: 1995
+    //     })
+    // }
+    //
+    // //https://firebase.google.com/docs/firestore/manage-data/delete-data?hl=ko 삭제는 여기 참고
+    //
+    // useEffect(()=>{ // db 내용 출력
+    //     db.collection("datas").get().then((querySanpshot)=>{
+    //         querySanpshot.forEach((doc) => {
+    //             console.log(doc.data())
+    //         })
+    //     })
+    // }, [])
+    //
+
     // useEffect(()=> {
     //
     //     const provider = new firebase.auth.GoogleAuthProvider();
@@ -88,11 +123,26 @@ function App() {
                     </div>
                     <div className={"vaccineInfo"}>
                         <div id={"map"}>
-                            지도
+                            <h2>지도</h2>
                             <Map/>
                         </div>
                         <div id={"vaccinationLocation"}>
-                            백신 접종처 정보 미구현
+                            <h2>백신 접종처</h2>
+                            <div className="location">
+                                {
+                                    vLocations.map(elem => {
+                                        return (
+                                            <div className="locationBox" key={elem.orgcd}>
+                                                <ul>
+                                                    <li>기관명: {elem.orgnm}</li>
+                                                    <li>기관전화번호: {elem.orgTlno}</li>
+                                                    <li>기관주소: {elem.orgZipaddr}</li>
+                                                    <li>당일 휴무여부: {elem.hldyYn}</li>
+                                                </ul>
+                                            </div>);
+                                    })
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -104,7 +154,7 @@ function App() {
                         {/*    <input name={"password"} onChange={e=>setPassword(e.target.value)}/>*/}
                         {/*    <input type={"submit"} value={"submit"}/>*/}
                         {/*</form>*/}
-                        <button onClick={loginFirebase}>로그인</button>
+                        <Button id="loginButton" onClick={loginFirebase} variant="contained" color="primary">로그인</Button>
                     </div>
                     <div id={"news"}>
                         뉴스 미구현
