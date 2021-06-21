@@ -112,11 +112,9 @@ function App() {
 
 
     return(
-        <div> <h1 id={"title"}>코로나 정보</h1>
+        <div id={"title"}> <h1 id={"title"}>코로나 정보</h1>
 
             <div className={"topLevel"}>
-
-
                 <div className={"leftSide"}>
                     <div id={"covidConfirmed"}>
                         확진자 정보 미구현
@@ -127,10 +125,12 @@ function App() {
                             <Map/>
                         </div>
                         <div id={"vaccinationLocation"}>
-                            <h2>백신 접종처</h2>
+                            <h2>백신 접종처(가나다 순)</h2>
                             <div className="location">
                                 {
-                                    vLocations.map(elem => {
+                                    vLocations.slice(0).sort(function(a,b) {
+                                        return a.orgnm < b.orgnm ? -1 : a.orgnm > b.orgnm ? 1: 0;
+                                    }).map(elem => {
                                         return (
                                             <div className="locationBox" key={elem.orgcd}>
                                                 <ul>

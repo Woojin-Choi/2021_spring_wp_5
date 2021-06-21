@@ -1,5 +1,6 @@
 /*global kakao*/
 import React, { useEffect } from 'react'
+import './App.css';
 
 const Map = ({ searchPlace }) =>{
 
