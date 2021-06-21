@@ -53,7 +53,7 @@ const Map = ({ searchPlace }) =>{
             });
         }
 
-        // 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
+// 마커를 클릭했을 때 마커 위에 표시할 인포윈도우를 생성합니다
         let iwContent = '<div style="padding:5px;">Hello World!</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
             iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 
@@ -63,21 +63,10 @@ const Map = ({ searchPlace }) =>{
             removable : iwRemoveable
         });
 
-        // 지도에 확대 축소 컨트롤을 생성한다
-        var zoomControl = new kakao.maps.ZoomControl();
-
-        // 지도의 우측에 확대 축소 컨트롤을 추가한다
-        map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
-
         // 마커에 클릭이벤트를 등록합니다
         kakao.maps.event.addListener(marker, 'click', function() {
             // 마커 위에 인포윈도우를 표시합니다
             infowindow.open(map, marker);
-        });
-
-        // 지도 클릭 이벤트를 등록한다 (좌클릭 : click, 우클릭 : rightclick, 더블클릭 : dblclick)
-        kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
-            console.log('지도에서 클릭한 위치의 좌표는 ' + mouseEvent.latLng.toString() + ' 입니다.');
         });
 
         // 마커에 마우스오버 이벤트를 등록합니다
@@ -92,14 +81,6 @@ const Map = ({ searchPlace }) =>{
             infowindow.close();
         });
 
-        function relayout() {
-
-            // 지도를 표시하는 div 크기를 변경한 이후 지도가 정상적으로 표출되지 않을 수도 있습니다
-            // 크기를 변경한 이후에는 반드시  map.relayout 함수를 호출해야 합니다
-            // window의 resize 이벤트에 의한 크기변경은 map.relayout 함수가 자동으로 호출됩니다
-            map.relayout();
-        }
-
 
 
         marker.setMap(map);},[searchPlace])
@@ -112,6 +93,4 @@ const Map = ({ searchPlace }) =>{
     )
 }
 
-export {
-    Map
-}
+export default Map;

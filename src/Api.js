@@ -58,10 +58,10 @@ const fetch = require('node-fetch');
 
 const AUTH_KEY = '/7IOSPMoyPtgQMbjrMUuHMSuO2IjSAO2gxgrKYU8zb5hPcSqXo7Z+LiHtuglidhA65F9qotVT7b4rocoZLXmCg==';
 const getVLocation = async () => {
-  const defaultUrl = 'https://api.odcloud.kr/api'
+  const defaultUrl2 = 'https://api.odcloud.kr/api'
   const url = 'apnmOrg/v1/list'
-  const query = 'page=1&perPage=200' //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 마지막에 늘려야함
-  const res = await fetch(`${defaultUrl}/${url}?${query}`, {
+  const query = 'page=1&perPage=20000'
+  const res = await fetch(`${defaultUrl2}/${url}?${query}`, {
     method: 'GET',
     headers: {Authorization: `Infuser ${AUTH_KEY}`, accept: "application/json`"}
   });
@@ -70,27 +70,17 @@ const getVLocation = async () => {
   return info.data;
 }
 
-// const getXY = async () => {
-//   const format = {}
-//
-//   GET "https://dapi.kakao.com/v2/local/search/keyword.json?y=37.514322572335935&x=127.06283102249932&radius=20000" \
-// --data-urlencode "query=카카오프렌즈" \
-// -H "Authorization: KakaoAK {REST_API_KEY}"
-//
-// }
-
-
-// const getVLocation = async (extraHeaders={}) => {
-//   const res = await fetch('https://api.odcloud.kr/api/15077586/v1/centers?page=1&perPage=500', {
+// const getVLocation2 = async (extraHeaders={}) => {
+//   const defaultUrl2 = 'https://infuser.odcloud.kr/oas/docs?namespace=15077586/v1'
+//   const url = '/15077586/v1/centers'
+//   const query = 'page=1&perPage=20000'
+//   const res = await fetch(`${defaultUrl2}/${url}?${query}`, {
 //     method: 'GET',
 //     headers: {Authorization: `Infuser ${AUTH_KEY}`, accept: "application/json`"}
 //   });
-//
-//   const info = await res.json()
-//   console.log(info)
-//   // return await res.json();
+//   // console.log(await res.json());
+//   return await res.json();
 // }
-
 
 // const getInfectedNum = async (extraHeaders={}) => {
 //   const defaultUrl = 'http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19SidoInfStateJson'
@@ -118,8 +108,8 @@ const getVLocation = async () => {
 //     // do attributes
 //     if (xml.attributes.length > 0) {
 //       obj["@attributes"] = {};
-//       for (let j = 0; j < xml.attributes.length; j++) {
-//         const attribute = xml.attributes.item(j);
+//       for (var j = 0; j < xml.attributes.length; j++) {
+//         var attribute = xml.attributes.item(j);
 //         obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
 //       }
 //     }

@@ -40,15 +40,14 @@
 
 #map {
   height: 500px;
-  width: 70%;
+  width: 80%;
   padding: 10px 50px 50px 50px;
-  margin-right: 10px;
   border: 2px solid cornflowerblue;
 }
 
 #vaccinationLocation {
   height: 500px;
-  width: 30%;
+  width: 20%;
   padding: 10px 50px 50px 50px;
   border: 2px solid cornflowerblue;
 }
@@ -68,7 +67,6 @@
   flex-direction: column;
   width: 25%;
   padding: 50px;
-  align-items: center;
   border: 2px solid red;
 }
 
@@ -83,14 +81,14 @@
   height: 50px;
   width: 300px;
   padding: 50px;
-  margin-bottom: 50px;
+  margin: 5px;
   border: 2px solid cornflowerblue;
 }
-
 #news {
   height: 850px;
   width: 300px;
   padding: 50px;
+  margin: 5px;
   border: 2px solid cornflowerblue;
 }
 
