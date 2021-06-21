@@ -40,6 +40,7 @@ function App() {
     const [password, setPassword] = useState(null);
     const [vLocations, setVLocations] = useState([]);
     const [selectedLoc, setSelectedLoc] = useState(null);
+    const [locInfo, setLocInfo] = useState({});
 
     const db = firebase.firestore();
 
@@ -77,11 +78,16 @@ function App() {
 
     }
 
-    // const locationCheck = (e) => {
-    //     console.log(e);
-    //     setSelectedLoc(e);
-    //     showLocation(e);
-    // }
+    const locationCheck = (e) => {
+        setSelectedLoc(e.orgZipaddr);
+        const _locInfo = {
+            "전화번호": `${e.orgTlno}`,
+            "진료시간": `${e.sttTm} ~ ${e.endTm}`,
+            "점심시간": `${e.lunchSttTm} ~ ${e.lunchEndTm}`
+        }
+        console.log(_locInfo)
+        setLocInfo(_locInfo)
+    }
 
     useEffect(()=>{
         getVLocation()
@@ -89,7 +95,7 @@ function App() {
                 setVLocations(_info)
             })
     },[])
-    // const DBFUNC1 = () => { // db에 추가하는 함수수
+    // const DBFUNC1 = () => { // db에 추가하는 함수
     //    db.collection("datas").add({
     //         first: "1",
     //         last: "2",
@@ -128,12 +134,8 @@ function App() {
 
     // },[]);
 
-
-
-
-
     return(
-        <div id={"title"}> <h1 id={"title"}>코로나 정보</h1>
+        <div id={"title"}> <h1>코로나 정보</h1>
 
             <div className={"topLevel"}>
                 <div className={"leftSide"}>
@@ -142,7 +144,7 @@ function App() {
                     </div>
                     <div className={"vaccineInfo"}>
                         <div id={"map"}>
-                            <Map/>
+                            <Map selectedLoc={selectedLoc} locInfo={locInfo}/>
                         </div>
                         <div id={"vaccinationLocation"}>
                             <h2>백신 접종처(가나다 순)</h2>
@@ -158,7 +160,7 @@ function App() {
                                                     <li>기관전화번호: {elem.orgTlno}</li>
                                                     <li>기관주소: {elem.orgZipaddr}</li>
                                                     <li>당일 휴무여부: {elem.hldyYn}</li>
-                                                    {/*<Button id="locationButton" variant="outlined" color="primary" onClick={()=>locationCheck(elem.orgZipaddr)}>위치 확인</Button>*/}
+                                                    <Button id="locationButton" variant="outlined" color="primary" onClick={()=>locationCheck(elem)}>위치 확인</Button>
                                                 </ul>
                                             </div>);
                                     })

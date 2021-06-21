@@ -67,7 +67,6 @@ const getVLocation = async () => {
   });
 
   const info = await res.json()
-  console.log(info,"여기는?");
   return info.data;
 }
 
