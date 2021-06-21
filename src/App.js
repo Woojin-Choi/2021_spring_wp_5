@@ -135,56 +135,61 @@ function App() {
     // },[]);
 
     return(
-        <div id={"title"}> <h1>코로나 정보</h1>
+        <div className={"whole"}>
+            <header id={"title"}>
+                <h1>코로나 정보</h1>
+            </header>
 
-            <div className={"topLevel"}>
-                <div className={"leftSide"}>
-                    <div id={"covidConfirmed"}>
-                        확진자 정보 미구현
-                    </div>
-                    <div className={"vaccineInfo"}>
-                        <div id={"map"}>
-                            <Map selectedLoc={selectedLoc} locInfo={locInfo}/>
+            <body>
+                <div className={"topLevel"}>
+                    <div className={"leftSide"}>
+                        <div id={"covidConfirmed"}>
+                            확진자 정보 미구현
                         </div>
-                        <div id={"vaccinationLocation"}>
-                            <h2>백신 접종처(가나다 순)</h2>
-                            <div className="location">
-                                {
-                                    vLocations.slice(0).sort(function(a,b) {
-                                        return a.orgnm < b.orgnm ? -1 : a.orgnm > b.orgnm ? 1: 0;
-                                    }).map(elem => {
-                                        return (
-                                            <div className="locationBox" key={elem.orgcd}>
-                                                <ul>
-                                                    <li>기관명: {elem.orgnm}</li>
-                                                    <li>기관전화번호: {elem.orgTlno}</li>
-                                                    <li>기관주소: {elem.orgZipaddr}</li>
-                                                    <li>당일 휴무여부: {elem.hldyYn}</li>
-                                                    <Button id="locationButton" variant="outlined" color="primary" onClick={()=>locationCheck(elem)}>위치 확인</Button>
-                                                </ul>
-                                            </div>);
-                                    })
-                                }
+                        <div className={"vaccineInfo"}>
+                            <div id={"map"}>
+                                <Map selectedLoc={selectedLoc} locInfo={locInfo}/>
+                            </div>
+                            <div id={"vaccinationLocation"}>
+                                <h2>백신 접종처(가나다 순)</h2>
+                                <div className="location">
+                                    {
+                                        vLocations.slice(0).sort(function(a,b) {
+                                            return a.orgnm < b.orgnm ? -1 : a.orgnm > b.orgnm ? 1: 0;
+                                        }).map(elem => {
+                                            return (
+                                                <div className="locationBox" key={elem.orgcd}>
+                                                    <ul>
+                                                        <li>기관명: {elem.orgnm}</li>
+                                                        <li>전화번호: {elem.orgTlno}</li>
+                                                        <li>주소: {elem.orgZipaddr}</li>
+                                                        <li>당일 휴무여부: {elem.hldyYn}</li>
+                                                        <Button id="locationButton" variant="outlined" color="primary" onClick={()=>locationCheck(elem)}>위치 확인</Button>
+                                                    </ul>
+                                                </div>);
+                                        })
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div className={"rightSide"}>
-                    <div id={"login"}>
-                        {/*<form onSubmit={createAccount}>*/}
-                        {/*    <input name={"email"} onChange={e=>setEmail(e.target.value)}/>*/}
-                        {/*    <input name={"password"} onChange={e=>setPassword(e.target.value)}/>*/}
-                        {/*    <input type={"submit"} value={"submit"}/>*/}
-                        {/*</form>*/}
-                        <Button id="loginButton" onClick={loginFirebase} variant="contained" color="primary">로그인</Button>
+                    <div className={"rightSide"}>
+                        <div id={"login"}>
+                            {/*<form onSubmit={createAccount}>*/}
+                            {/*    <input name={"email"} onChange={e=>setEmail(e.target.value)}/>*/}
+                            {/*    <input name={"password"} onChange={e=>setPassword(e.target.value)}/>*/}
+                            {/*    <input type={"submit"} value={"submit"}/>*/}
+                            {/*</form>*/}
+                            <Button id="loginButton" onClick={loginFirebase} variant="contained" color="primary">로그인</Button>
+                        </div>
+                        <div id={"news"}>
+                            뉴스 미구현
+                        </div>
                     </div>
-                    <div id={"news"}>
-                        뉴스 미구현
-                    </div>
-                </div>
 
-            </div>
+                </div>
+            </body>
         </div>
     )
 }

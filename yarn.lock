@@ -9676,6 +9676,11 @@ react-scripts@4.0.3:
   optionalDependencies:
     fsevents "^2.1.3"
 
+react-semantic-popup@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/react-semantic-popup/-/react-semantic-popup-1.0.5.tgz#4446aa8dcbd64928cc71467ec36b775d23b053f0"
+  integrity sha512-a+6ccKc8I48ynWI5QOys04c4KZcfguDUu1d4lwyIj3Y8dCN++kX+WHMSQxiFuNO/XP37gokseET31PrH7JscOQ==
+
 react-transition-group@^4.4.0:
   version "4.4.2"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-4.4.2.tgz#8b59a56f09ced7b55cbd53c36768b922890d5470"
