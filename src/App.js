@@ -41,6 +41,7 @@ function App() {
     const [vLocations, setVLocations] = useState([]);
     const [selectedLoc, setSelectedLoc] = useState(null);
     const [locInfo, setLocInfo] = useState({});
+    const [user, setUser] = useState(null);
 
     const db = firebase.firestore();
 
@@ -73,10 +74,23 @@ function App() {
         const provider = new firebase.auth.GoogleAuthProvider();
         firebase.auth().signInWithPopup(provider)
             .then((result)=>{
-                console.log(result);
-            });
-
+                setUser(result.user.email);
+            })
+            .catch((error)=>{
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorMessage);
+            })
     }
+
+    const logoutFirebase = () => {
+        firebase.auth().signOut()
+            .then((result)=>{
+                setUser(null);
+                console.log(result);
+            })
+    }
+
 
     const locationCheck = (e) => {
         setSelectedLoc(e.orgZipaddr);
@@ -181,7 +195,13 @@ function App() {
                             {/*    <input name={"password"} onChange={e=>setPassword(e.target.value)}/>*/}
                             {/*    <input type={"submit"} value={"submit"}/>*/}
                             {/*</form>*/}
-                            <Button id="loginButton" onClick={loginFirebase} variant="contained" color="primary">로그인</Button>
+                            {user ?
+                                <Button id="loginButton" onClick={logoutFirebase} variant="contained"
+                                        color="primary">로그아웃</Button>
+                                :
+                                <Button id="loginButton" onClick={loginFirebase} variant="contained"
+                                color="primary">로그인</Button>
+                            }
                         </div>
                         <div id={"news"}>
                             뉴스 미구현
