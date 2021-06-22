@@ -1,0 +1,158 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.whole {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-items: center;
+  font: normal 15px Droid Sans,AppleSDGothicNeo-Regular,Malgun Gothic,Dotum,sans-serif;
+}
+
+.topLevel{
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  width: 80%;
+}
+
+.leftSide {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 75%;
+  padding: 50px;
+  border: 2px solid red;
+}
+
+.vaccineInfo {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  width: 100%;
+}
+
+#map {
+  height: 500px;
+  width: 60%;
+  margin-right: 10px;
+  padding: 10px 50px 50px 50px;
+  border: 2px solid cornflowerblue;
+}
+
+#vaccinationLocation {
+  height: 500px;
+  width: 40%;
+  margin-left: 10px;
+  padding: 10px 50px 50px 50px;
+  border: 2px solid cornflowerblue;
+}
+
+.location {
+  height: 500px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.locationBox {
+  border: 1px solid darkgray;
+  padding: 5px 5px 15px 5px;
+  height: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  justify-items:center;
+  justify-content: center;
+}
+
+.favLocationBox {
+  border: 1px solid darkgray;
+  padding: 5px 5px 15px 5px;
+  height: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  justify-items:center;
+  justify-content: center;
+}
+
+.rightSide{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 25%;
+  padding: 50px;
+  border: 2px solid red;
+}
+
+#covidConfirmed {
+  height: 500px;
+  width: 100%;
+  margin-bottom: 50px;
+  border: 2px solid cornflowerblue;
+
+}
+#login {
+  height: 70px;
+  width: 300px;
+  padding: 50px;
+  margin: 5px;
+  border: 2px solid cornflowerblue;
+}
+
+#loggedIn {
+  display: flex;
+  flex-direction: column;
+}
+
+#news {
+  height: 850px;
+  width: 300px;
+  padding: 50px;
+  margin: 5px;
+  border: 2px solid cornflowerblue;
+}
+
+
+
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
