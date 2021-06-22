@@ -1,7 +1,6 @@
 import './App.css'
 import React, {useState, useEffect} from 'react'
-import {Button, ButtonGroup, Box} from "@material-ui/core";
-import AddCircleOutlineRoundedIcon from '@material-ui/icons/AddCircleOutlineRounded';
+import {Button, Box} from "@material-ui/core";
 
 import firebase from "firebase/app";
 import "firebase/auth";
@@ -149,7 +148,6 @@ function App() {
                         myFav.push(doc.data())
                     }
                 })
-
                 setFavLoc(myFav)
                 console.log(myFav)
             })

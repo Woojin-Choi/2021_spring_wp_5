@@ -53,33 +53,36 @@
 }
 
 .location {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: space-between;
   height: 500px;
+  width: 100%;
+}
+
+.locationGroup {
+  display: flex;
+  flex-direction: column;
   overflow-y: scroll;
   overflow-x: hidden;
+  padding-right: 4px;
 }
 
 .locationBox {
   border: 1px solid darkgray;
-  padding: 5px 5px 15px 5px;
   height: auto;
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items:center;
-  justify-items:center;
-  justify-content: center;
+  border: 2px solid cornflowerblue;
+  margin-top: 10px;
 }
 
-.favLocationBox {
-  border: 1px solid darkgray;
-  padding: 5px 5px 15px 5px;
-  height: auto;
-  width: 100%;
+.BtnGroup {
   display: flex;
-  flex-direction: column;
-  align-items:center;
-  justify-items:center;
   justify-content: center;
+  padding-bottom: 10px;
 }
 
 .rightSide{
@@ -99,6 +102,9 @@
 
 }
 #login {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   height: 70px;
   width: 250px;
   padding: 50px;
@@ -118,6 +124,7 @@
 #cheerChat {
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 350px;
   height: 900px;
   margin-top: 30px;

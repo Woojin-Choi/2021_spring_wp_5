@@ -45,6 +45,7 @@ const getVLocation = async () => {
   });
 
   const info = await res.json()
+  console.log(info.data)
   return info.data;
 }
 

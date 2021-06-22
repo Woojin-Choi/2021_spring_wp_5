@@ -1,9 +1,11 @@
+import './App.css'
 import Map from "./Map";
 import {Button, ButtonGroup} from "@material-ui/core";
 import AddCircleOutlineRoundedIcon from "@material-ui/icons/AddCircleOutlineRounded";
 import React, {useEffect, useState} from "react";
 import {getVLocation} from "./Api";
 import firebase from "firebase";
+
 
 
 export default function VaccineInfo(props) {
@@ -112,63 +114,71 @@ export default function VaccineInfo(props) {
                 <Map selectedLoc={selectedLoc} locInfo={locInfo}/>
             </div>
             <div id={"vaccinationLocation"}>
-                <div className="location">
+                <div>
                     {
                         props.favoritePanel ?
-                            <div>
-                                <h2>즐겨찾는 병원 (가나다 순)</h2>
-                                {
-                                    props.favLoc.slice(0).sort(function (a, b) {
-                                        return a.orgnm < b.orgnm ? -1 : a.orgnm > b.orgnm ? 1 : 0;
-                                    }).map(elem => {
-                                        return (
-                                            <div className="favLocationBox" key={elem.orgcd}>
-                                                <ul>
-                                                    <li>기관명: {elem.orgnm}</li>
-                                                    <li>전화번호: {elem.orgTlno}</li>
-                                                    <li>주소: {elem.orgZipaddr}</li>
-                                                    <li>당일 휴무여부: {elem.hldyYn}</li>
-                                                </ul>
-                                                <ButtonGroup color="primary"
-                                                             aria-label="outlined primary button group">
-                                                    <Button class="locationButton" variant="outlined"
-                                                            color="primary"
-                                                            onClick={() => locationCheck(elem)}>위치
-                                                        확인</Button>
-                                                    <Button id="favoriteDelButton" size="small"
-                                                            startIcon={<AddCircleOutlineRoundedIcon/>}
-                                                            onClick={() => favoriteDel(elem)}>즐겨찾기
-                                                        삭제</Button>
-                                                </ButtonGroup>
-                                            </div>);
-                                    })
-                                }
+                            <div className="location">
+                                <div>
+                                    <h2>즐겨찾는 병원 (가나다 순)</h2>
+                                </div>
+                                <div className={"locationGroup"}>
+                                    {
+                                        props.favLoc.slice(0).sort(function (a, b) {
+                                            return a.orgnm < b.orgnm ? -1 : a.orgnm > b.orgnm ? 1 : 0;
+                                        }).map(elem => {
+                                            return (
+                                                <div className="LocationBox" key={elem.orgcd}>
+                                                    <ul className={"favInfo"}>
+                                                        <li>기관명: {elem.orgnm}</li>
+                                                        <li>전화번호: {elem.orgTlno}</li>
+                                                        <li>주소: {elem.orgZipaddr}</li>
+                                                        <li>당일 휴무여부: {elem.hldyYn}</li>
+                                                    </ul>
+                                                    <ButtonGroup className="BtnGroup" color="primary"
+                                                                 aria-label="outlined primary button group">
+                                                        <Button class="locationButton" variant="outlined"
+                                                                color="primary"
+                                                                onClick={() => locationCheck(elem)}>위치
+                                                            확인</Button>
+                                                        <Button id="favoriteDelButton" size="small"
+                                                                startIcon={<AddCircleOutlineRoundedIcon/>}
+                                                                onClick={() => favoriteDel(elem)}>즐겨찾기
+                                                            삭제</Button>
+                                                    </ButtonGroup>
+                                                </div>);
+                                        })
+                                    }
+                                </div>
                             </div>
                             :
-                            <div>
-                                <h2>백신 접종처 (가나다 순)</h2>
+                            <div className="location">
+                                <div>
+                                    <h2>백신 접종처 (가나다 순)</h2>
+                                </div>
+                                <div className={"locationGroup"}>
                                 {
                                     vLocations.slice(0).sort(function (a, b) {
                                         return a.orgnm < b.orgnm ? -1 : a.orgnm > b.orgnm ? 1 : 0;
                                     }).map(elem => {
                                         return (
                                             <div className="locationBox" key={elem.orgcd}>
-                                                <ul>
+                                                <ul className={"favInfo"}>
                                                     <li>기관명: {elem.orgnm}</li>
                                                     <li>전화번호: {elem.orgTlno}</li>
                                                     <li>주소: {elem.orgZipaddr}</li>
                                                     <li>당일 휴무여부: {elem.hldyYn}</li>
                                                 </ul>
-                                                <ButtonGroup color="primary" aria-label="outlined primary button group">
+                                                <ButtonGroup className="BtnGroup" color="primary" aria-label="outlined primary button group">
                                                     <Button class="locationButton" onClick={() => locationCheck(elem)}>위치
                                                         확인</Button>
                                                     <Button id="favoriteAddButton" size="small"
                                                             startIcon={<AddCircleOutlineRoundedIcon/>}
-                                                            onClick={() => favoriteAdd(elem)}>즐겨찾기 추기</Button>
+                                                            onClick={() => favoriteAdd(elem)}>즐겨찾기 추가</Button>
                                                 </ButtonGroup>
                                             </div>);
                                     })
                                 }
+                                </div>
                             </div>
                     }
                 </div>

@@ -116,10 +116,10 @@ const Map = (props) => {
                 });
 
                 // 인포윈도우로 장소에 대한 설명을 표시합니다
-                let infowindow = new kakao.maps.InfoWindow({
-                    content: '<div style="width:150px;text-align:center;padding:6px 0;">정보를 확인하려면 클릭하세요</div>'
-                });
-                infowindow.open(map, marker);
+                // let infowindow = new kakao.maps.InfoWindow({
+                //     content: '<div style="width:150px;text-align:center;padding:6px 0;"></div>'
+                // });
+                // infowindow.open(map, marker);
 
                 // kakao.maps.event.addListener(marker, 'click', popUpInfo());
 
