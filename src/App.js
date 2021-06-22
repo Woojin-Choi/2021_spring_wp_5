@@ -134,8 +134,7 @@ function App() {
 
     const addMessages = () => {
         if(user) {
-            dbAdd("allMessages",myChat);
-            alert(myChat)
+            dbAdd("allChatLog",myChat);
         }
         else {
             alert("로그인 이후 사용가능합니다")
@@ -170,17 +169,22 @@ function App() {
     }
 
     const messagesLog = []
+    const loadChatBox = []
 
     useEffect(() => {
-            db.collection("allMessages").get()
+            db.collection("allChatLog").get()
                 .then((querySnapshot) => {
                     querySnapshot.forEach((doc) => {
-                        messagesLog.push(doc.data().chat)
+                        messagesLog.push(doc.data())
                     })
-
-                    setMessages(messagesLog)
+                    messagesLog.slice(0).sort(function(a,b) {
+                        return a.date < b.date ? -1 : a.date > b.date ? 1: 0;
+                    }).map(elem => loadChatBox.push(elem.chat))
+                    setMessages(loadChatBox)
                 })
     }, []);
+
+
 
 
 
@@ -191,7 +195,7 @@ function App() {
             })
     },[])
 
-    const handleChange = ({ target: { value } }) => setMyChat({id : user, chat : value});
+    const handleChange = ({ target: { value } }) => setMyChat({id : user, chat : value, date : new Date()});
 
 
 
@@ -330,9 +334,11 @@ function App() {
                                 {console.log(myChat)}
                                 <input type="submit" value = "입력" />
                             </form>
+                            <div>
                             { messages.map(elem => {
                                 return(<div> {elem} </div>)
                             })}
+                            </div>
                         </div>
                     </div>
 
