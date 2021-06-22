@@ -1,6 +1,5 @@
-import React, {useState, useEffect} from 'react'
-import Map from './Map'
 import './App.css'
+import React, {useState, useEffect} from 'react'
 import {Button, ButtonGroup, Box} from "@material-ui/core";
 import AddCircleOutlineRoundedIcon from '@material-ui/icons/AddCircleOutlineRounded';
 
@@ -201,9 +200,7 @@ function App() {
                 <Box className={"topLevel"}>
                     <div className={"leftSide"}>
                         <div id={"covidConfirmed"}>
-                            <div>
                                 <StatTable/>
-                            </div>
                         </div>
 
                     </div>
@@ -246,7 +243,6 @@ function App() {
                             })}
                         </div>
                     </div>
-
                 </Box>
             </body>
         </html>
