@@ -63,9 +63,20 @@ function App() {
     const loadChatBox = []
     const handleChange = ({ target: { value } }) => setMyChat({id : user, chat : value, date : new Date()});
 
-    const addMessages = () => {
+    const addMessages = (e) => {
+        e.preventDefault();
         if (user) {
             dbAdd("allChatLog", myChat);
+            db.collection("allChatLog").get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    messagesLog.push(doc.data())
+                })
+                messagesLog.slice(0).sort(function(a,b) {
+                    return a.date < b.date ? -1 : a.date > b.date ? 1: 0;
+                }).map(elem => loadChatBox.push(elem.chat))
+                setMessages(loadChatBox)
+            })
         } else {
             alert("로그인 이후 사용가능합니다")
         }
