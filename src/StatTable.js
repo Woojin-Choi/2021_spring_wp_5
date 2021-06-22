@@ -41,20 +41,26 @@ export default function StatTable() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {covidStatus.map((e,idx) =>  { if(idx<19)
-                        return(
-                            <TableRow key={e.gubun}>
-                                <TableCell component="th" scope="row">
-                                    {e.gubun}
-                                </TableCell>
-                                <TableCell align="right">{e.localOccCnt}</TableCell>
-                                <TableCell align="right">{e.isolIngCnt}</TableCell>
-                                <TableCell align="right">{e.deathCnt}</TableCell>
-                                <TableCell align="right">{e.defCnt}</TableCell>
-                                <TableCell align="right">{e.stdDay}</TableCell>
-                            </TableRow>
-                        )}
-                    )}
+                    {
+                        covidStatus.map((e,idx) =>  {
+                            if(idx<19) {
+                                return(
+                                    <TableRow key={e.gubun}>
+                                        <TableCell component="th" scope="row">
+                                            {e.gubun}
+                                        </TableCell>
+                                        <TableCell align="right">{e.localOccCnt}</TableCell>
+                                        <TableCell align="right">{e.isolIngCnt}</TableCell>
+                                        <TableCell align="right">{e.deathCnt}</TableCell>
+                                        <TableCell align="right">{e.defCnt}</TableCell>
+                                        <TableCell align="right">{e.stdDay}</TableCell>
+                                    </TableRow>
+                                )
+                            } else {
+                                return(<div></div>)
+                            }
+                        })
+                    }
                 </TableBody>
             </Table>
         </TableContainer>

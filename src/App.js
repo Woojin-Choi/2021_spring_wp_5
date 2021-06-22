@@ -39,11 +39,7 @@ firebase.auth().onAuthStateChanged(function(user){
 
 function App() {
 
-    const [email, setEmail] = useState(null);
-    const [password, setPassword] = useState(null);
     const [vLocations, setVLocations] = useState([]);
-    const [selectedLoc, setSelectedLoc] = useState(null);
-    const [locInfo, setLocInfo] = useState({});
     const [user, setUser] = useState(null);
     const [favoritePanel, setFavoritePanel] = useState(false);
     const [favLoc, setFavLoc] = useState([]);
@@ -218,7 +214,7 @@ function App() {
     // },[]);
 
     return(
-        <div className={"whole"}>
+        <html className={"whole"}>
             <header id={"title"}>
                 <h1>코로나 정보</h1>
             </header>
@@ -235,62 +231,7 @@ function App() {
                     </div>
 
                     <div className={"middle"}>
-
                         <VaccineInfo user={user} favoritePanel={favoritePanel} favLoc={favLoc}/>
-                        {/*<div className={"vaccineInfo"}>*/}
-                        {/*    <div id={"map"}>*/}
-                        {/*        <Map selectedLoc={selectedLoc} locInfo={locInfo}/>*/}
-                        {/*    </div>*/}
-                        {/*    <div id={"vaccinationLocation"}>*/}
-                        {/*        <div className="location">*/}
-                        {/*            {*/}
-                        {/*                favoritePanel?*/}
-                        {/*                    <div>*/}
-                        {/*                        <h2>즐겨찾는 병원 (가나다 순)</h2>*/}
-                        {/*                        {*/}
-                        {/*                            favLoc.slice(0).sort(function(a,b) {*/}
-                        {/*                                return a.orgnm < b.orgnm ? -1 : a.orgnm > b.orgnm ? 1: 0;*/}
-                        {/*                            }).map(elem => {*/}
-                        {/*                                return (*/}
-                        {/*                                    <div className="favLocationBox" key={elem.orgcd}>*/}
-                        {/*                                        <ul>*/}
-                        {/*                                            <li>기관명: {elem.orgnm}</li>*/}
-                        {/*                                            <li>전화번호: {elem.orgTlno}</li>*/}
-                        {/*                                            <li>주소: {elem.orgZipaddr}</li>*/}
-                        {/*                                            <li>당일 휴무여부: {elem.hldyYn}</li>*/}
-                        {/*                                        </ul>*/}
-                        {/*                                        <Button id="locationButton" variant="outlined" color="primary" onClick={()=>locationCheck(elem)}>위치 확인</Button>*/}
-                        {/*                                    </div>);*/}
-                        {/*                            })*/}
-                        {/*                        }*/}
-                        {/*                    </div>*/}
-                        {/*                    :*/}
-                        {/*                    <div>*/}
-                        {/*                        <h2>백신 접종처 (가나다 순)</h2>*/}
-                        {/*                        {*/}
-                        {/*                            vLocations.slice(0).sort(function(a,b) {*/}
-                        {/*                                return a.orgnm < b.orgnm ? -1 : a.orgnm > b.orgnm ? 1: 0;*/}
-                        {/*                            }).map(elem => {*/}
-                        {/*                                return (*/}
-                        {/*                                    <div className="locationBox" key={elem.orgcd}>*/}
-                        {/*                                        <ul>*/}
-                        {/*                                            <li>기관명: {elem.orgnm}</li>*/}
-                        {/*                                            <li>전화번호: {elem.orgTlno}</li>*/}
-                        {/*                                            <li>주소: {elem.orgZipaddr}</li>*/}
-                        {/*                                            <li>당일 휴무여부: {elem.hldyYn}</li>*/}
-                        {/*                                        </ul>*/}
-                        {/*                                        <ButtonGroup color="primary" aria-label="outlined primary button group">*/}
-                        {/*                                            <Button id="locationButton" onClick={()=>locationCheck(elem)}>위치 확인</Button>*/}
-                        {/*                                            <Button id="favoriteButton" size="small" startIcon={<AddCircleOutlineRoundedIcon/>} onClick={()=>favoriteAdd(elem)}>즐겨찾기 추기</Button>*/}
-                        {/*                                        </ButtonGroup>*/}
-                        {/*                                    </div>);*/}
-                        {/*                            })*/}
-                        {/*                        }*/}
-                        {/*                    </div>*/}
-                        {/*            }*/}
-                        {/*        </div>*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
                     </div>
 
                     <div className={"rightSide"}>
@@ -307,8 +248,6 @@ function App() {
                                             color="primary">로그아웃</Button>
                                     <Button id="myFavorite" onClick={()=>favoritePanel?favoriteCheck("u"):favoriteCheck("c")} variant="contained"
                                                     color="primary">{favoritePanel?'전체 목록 보기':'즐겨찾는 병원보기'}</Button>
-
-
                                 </div>
                                 :
                                 <Button id="loginButton" onClick={loginFirebase} variant="contained"
@@ -322,7 +261,7 @@ function App() {
 
                 </Box>
             </body>
-        </div>
+        </html>
     )
 }
 

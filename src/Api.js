@@ -35,28 +35,6 @@ const fetch = require('node-fetch');
 //   return await res.json();
 // }
 
-// const url = 'https://infuser.odcloud.kr/oas/docs?namespace=15077586/v1/centers'
-
-// https://infuser.odcloud.kr/api/stages/28441/api-docs?1620976171039/apnmOrg/v1/list
-
-
-// let queryParams =`?${encodeURIComponent('S')}`
-// const requestUrl = `${url}`
-
-// // https://api.odcloud.kr/api/15077586/v1/centers?page=1&perPage=10
-// fetch('https://infuser.odcloud.kr/oas/docs?namespace=15077586/v1/centers',{
-//   method: 'GET',
-//   headers: {Authorization: `Infuser ${AUTH_KEY}`}
-// }).then(_info => {console.log(_info)})
-
-// fetch('https://api.odcloud.kr/api/apnmOrg/v1/list?page=1&perPage=100',{
-//   method: 'GET',
-//
-// })
-//     .then(res=>res.json())
-//     .then(_info => {console.log(_info)})
-
-
 const getVLocation = async () => {
   const AUTH_KEY = '/7IOSPMoyPtgQMbjrMUuHMSuO2IjSAO2gxgrKYU8zb5hPcSqXo7Z+LiHtuglidhA65F9qotVT7b4rocoZLXmCg==';
   const defaultUrl = 'https://api.odcloud.kr/api'
@@ -71,24 +49,21 @@ const getVLocation = async () => {
   return info.data;
 }
 
-const y = new Date().getFullYear().toString()
-const m = new Date().getMonth()
-const d = new Date().getDate().toString()
-const date = m<9? y+'0'+(m+1).toString()+d : y+(m+1).toString()+d;
+
 const getCovidStatus = async (extraHeaders={}) => {
-  console.log("여기서")
-  const AUTH_KEY = '%2F7IOSPMoyPtgQMbjrMUuHMSuO2IjSAO2gxgrKYU8zb5hPcSqXo7Z%2BLiHtuglidhA65F9qotVT7b4rocoZLXmCg%3D%3D'
+  const y = new Date().getFullYear().toString()
+  const m = new Date().getMonth()
+  const d = new Date().getDate().toString()
+  const date = m<9? y+'0'+(m+1).toString()+d : y+(m+1).toString()+d;
+    const AUTH_KEY = '%2F7IOSPMoyPtgQMbjrMUuHMSuO2IjSAO2gxgrKYU8zb5hPcSqXo7Z%2BLiHtuglidhA65F9qotVT7b4rocoZLXmCg%3D%3D'
   const defaultUrl = 'https://cors-anywhere.herokuapp.com/http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19SidoInfStateJson'
   const query = `serviceKey=${AUTH_KEY}&pageNo=1&numOfRows=30&startCreate_dt=${date}&endCreateDt=${date}&&_type=json`
   const res = await fetch(`${defaultUrl}?${query}`, {
     method: 'GET',
   });
 
-  console.log("에런가")
-
   const str=await res.text();
   const parsed = JSON.parse(str);
-  console.log(parsed);
   const stat = parsed.response.body.items.item
   return stat
 
@@ -96,116 +71,6 @@ const getCovidStatus = async (extraHeaders={}) => {
   // createDt: 생성일 deathCnt: 사망자 gubun: 지역, incDec: 전일대비 증감수, isolClearCnt: 격리해제수, isolIngCnt: 격리중환자수, localOccCnt: 지역발생수
   // overFlowCnt: 해외유입자 수 qurRate: 10만명당 발생률 seq: 해당 정보 고유번호 stdDay: 기준일
 }
-
-
-
-
-// const express = require('express');
-// const app = express();
-// const client_id = 'EvLLF9MO_6aBcH29MKWJ';
-// const client_secret = 'csk4CexOmi';
-// app.get('/search/blog', function (req, res) {
-//   const api_url = 'https://openapi.naver.com/v1/search/shop?query=' + encodeURI(req.query.query); // json 결과
-// //   var api_url = 'https://openapi.naver.com/v1/search/blog.xml?query=' + encodeURI(req.query.query); // xml 결과
-//   const request = require('request');
-//   const options = {
-//     url: api_url,
-//     headers: {'X-Naver-Client-Id':client_id, 'X-Naver-Client-Secret': client_secret}
-//   };
-//   request.get(options, function (error, response, body) {
-//     if (!error && response.statusCode == 200) {
-//       res.writeHead(200, {'Content-Type': 'text/json;charset=utf-8'});
-//       res.end(body);
-//     } else {
-//       res.status(response.statusCode).end();
-//       console.log('error = ' + response.statusCode);
-//     }
-//   });
-// });
-// app.listen(3000, function () {
-//   console.log('http://127.0.0.1:3000/search/blog?query=검색어 app listening on port 3000!');
-// });
-
-// const getNews = async () => {
-//   const url="https://openapi.naver.com/v1/search/news.json"
-//   const query="코로나"
-//   const res = await fetch(`${url}?${query}`, {
-//     method: 'GET',
-//     headers: {Authorization: `Infuser ${AUTH_KEY}`, accept: "application/json`"}
-//   });
-// }
-
-
-
-// getVLocation();
-// const getVLocation2 = async (extraHeaders={}) => {
-//   const defaultUrl2 = 'https://infuser.odcloud.kr/oas/docs?namespace=15077586/v1'
-//   const url = '/15077586/v1/centers'
-//   const query = 'page=1&perPage=20000'
-//   const res = await fetch(`${defaultUrl2}/${url}?${query}`, {
-//     method: 'GET',
-//     headers: {Authorization: `Infuser ${AUTH_KEY}`, accept: "application/json`"}
-//   });
-//   // console.log(await res.json());
-//   return await res.json();
-// }
-
-// const getInfectedNum = async (extraHeaders={}) => {
-//   const defaultUrl = 'http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19SidoInfStateJson'
-//   const res = await fetch(`${defaultUrl}/`, {
-//     method: 'GET',
-//     headers: {Authorization: `Infuser ${AUTH_KEY}`, accept: "application/json`"}
-//   });
-//
-//   const parser = new DOMParser();
-//   const xml = parser.parseFromString(await res, "text/xml");
-//
-//   const resJson = xmlToJson(xml);
-//
-//   console.log(resJson);
-//   return await res.json();
-// }
-
-// getInfectedNum();
-
-// const xmlToJson = async (xml) => {
-//   // Create the return object
-//   let obj = {};
-//
-//   if (xml.nodeType === 1) { // element
-//     // do attributes
-//     if (xml.attributes.length > 0) {
-//       obj["@attributes"] = {};
-//       for (var j = 0; j < xml.attributes.length; j++) {
-//         var attribute = xml.attributes.item(j);
-//         obj["@attributes"][attribute.nodeName] = attribute.nodeValue;
-//       }
-//     }
-//   } else if (xml.nodeType === 3) { // text
-//     obj = xml.nodeValue;
-//   }
-//   // do children
-//
-//   if (xml.hasChildNodes()) {
-//     for(let i = 0; i < xml.childNodes.length; i++) {
-//       let item = xml.childNodes.item(i);
-//       let nodeName = item.nodeName;
-//       if (typeof(obj[nodeName]) == "undefined") {
-//         obj[nodeName] = xmlToJson(item);
-//       } else {
-//         if (typeof(obj[nodeName].push) == "undefined") {
-//           let old = obj[nodeName];
-//           obj[nodeName] = [];
-//           obj[nodeName].push(old);
-//         }
-//         obj[nodeName].push(xmlToJson(item));
-//       }
-//     }
-//   }
-//   return obj;
-// };
-
-
 
 export {
   getVLocation,

@@ -16,6 +16,10 @@ export default function VaccineInfo(props) {
 
     const db = firebase.firestore();
 
+    const dbAdd = (category, data) => { // db에 추가하는 함수
+        db.collection(category).add(data);
+    }
+
     const locationCheck = (e) => {
         setSelectedLoc(e.orgZipaddr);
         const _locInfo = {
@@ -47,35 +51,10 @@ export default function VaccineInfo(props) {
                     else {alert("즐겨찾기에 이미 추가된 병원입니다")}
                 })
         }
-
-        else {
-            alert("로그인 이후 사용가능합니다")
-        }
+        else {alert("로그인 이후 사용가능합니다")}
     }
 
-    // const favoriteCheck = async (e) =>{
-    //     if(e==="u") setFavoritePanel(false);
-    //     else {
-    //         setFavoritePanel(true);
-    //         const myFav = [];
-    //         db.collection("favoriteOrg").get()
-    //             .then((querySnapshot) => {
-    //                 querySnapshot.forEach((doc) => {
-    //                     if(doc.data().userId === props.user) {
-    //                         myFav.push(doc.data())
-    //                     }
-    //                 })
-    //
-    //                 setFavLoc(myFav)
-    //                 console.log(myFav)
-    //             })
-    //
-    //     }
-    // }
 
-    const dbAdd = (category, data) => { // db에 추가하는 함수
-       db.collection(category).add(data);
-    }
 
     useEffect(()=>{
         getVLocation()
