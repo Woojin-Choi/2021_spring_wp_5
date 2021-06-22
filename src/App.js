@@ -250,9 +250,11 @@ function App() {
                                 {console.log(myChat)}
                                 <input type="submit" value = "입력" />
                             </form>
-                            { messages.map(elem => {
-                                return(<div> {elem} </div>)
-                            })}
+                            <div id={"chatBox"}>
+                                { messages.map(elem => {
+                                    return(<div> {elem} </div>)
+                                })}
+                            </div>
                         </div>
                     </div>
                 </Box>
