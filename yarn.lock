@@ -4545,6 +4545,11 @@ dom-helpers@^5.0.1:
     "@babel/runtime" "^7.8.7"
     csstype "^3.0.2"
 
+dom-parser@^0.1.6:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/dom-parser/-/dom-parser-0.1.6.tgz#696c633b535ab3291424eb5bf58ee426f64632ca"
+  integrity sha512-3nVRKbLEwmGfghLoeT1dxlK/0votalnOfasP+8VCHYDfDuCETY4LeMblfOeqww6XZk2ymZ1Uewy/hVad6Dy3yw==
+
 dom-serializer@0:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/dom-serializer/-/dom-serializer-0.2.2.tgz#1afb81f533717175d478655debc5e332d9f9bb51"
@@ -9677,6 +9682,11 @@ react-scripts@4.0.3:
     workbox-webpack-plugin "5.1.4"
   optionalDependencies:
     fsevents "^2.1.3"
+
+react-semantic-popup@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/react-semantic-popup/-/react-semantic-popup-1.0.5.tgz#4446aa8dcbd64928cc71467ec36b775d23b053f0"
+  integrity sha512-a+6ccKc8I48ynWI5QOys04c4KZcfguDUu1d4lwyIj3Y8dCN++kX+WHMSQxiFuNO/XP37gokseET31PrH7JscOQ==
 
 react-transition-group@^4.4.0:
   version "4.4.2"
