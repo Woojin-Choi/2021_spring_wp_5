@@ -219,7 +219,7 @@ function App() {
                             {localStorage.getItem("LOGIN_KEY") ?
                                 <div id={"loggedIn"}>
                                     <span>{localStorage.getItem("LOGIN_KEY")}님 반갑습니다!</span>
-                                    <Button className="rightSideBtn" id="loginButton" onClick={logoutFirebase} variant="contained"
+                                    <Button className="rightSideBtn" id="logoutButton" onClick={logoutFirebase} variant="contained"
                                             color="primary">로그아웃</Button>
                                     <Button className="rightSideBtn" id="myFavorite" onClick={()=>favoritePanel?favoriteCheck("u"):favoriteCheck("c")} variant="contained"
                                                     color="primary">{favoritePanel?'전체 목록 보기':'즐겨찾는 병원보기'}</Button>

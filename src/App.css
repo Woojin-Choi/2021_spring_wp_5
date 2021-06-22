@@ -18,7 +18,7 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  width: 75%;
+  width: 40%;
   padding: 50px;
   border: 2px solid red;
 }
@@ -31,6 +31,7 @@
 .middle {
   display: flex;
   flex-direction: row;
+  width: 40%;
   padding: 50px;
   border: 2px solid red;
 }
@@ -93,7 +94,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 15%;
+  width: 20%;
   padding: 50px;
   border: 2px solid red;
 }
