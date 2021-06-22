@@ -11,8 +11,6 @@ export default function VaccineInfo(props) {
     const [vLocations, setVLocations] = useState([]);
     const [selectedLoc, setSelectedLoc] = useState(null);
     const [locInfo, setLocInfo] = useState({});
-    // const [favoritePanel, setFavoritePanel] = useState(false);
-    // const [favLoc, setFavLoc] = useState([]);
 
     const db = firebase.firestore();
 

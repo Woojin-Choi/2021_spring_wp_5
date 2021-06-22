@@ -1,5 +1,4 @@
 const fetch = require('node-fetch');
-// const request = require('request');
 
 // const getDefaultHeaders = () => {
 //   const defaultHeaders = {
@@ -68,8 +67,8 @@ const getCovidStatus = async (extraHeaders={}) => {
   return stat
 
   // 19개 지역
-  // createDt: 생성일 deathCnt: 사망자 gubun: 지역, incDec: 전일대비 증감수, isolClearCnt: 격리해제수, isolIngCnt: 격리중환자수, localOccCnt: 지역발생수
-  // overFlowCnt: 해외유입자 수 qurRate: 10만명당 발생률 seq: 해당 정보 고유번호 stdDay: 기준일
+  // createDt: 생성일 deathCnt: 사망자 gubun: 지역, incDec: 전일대비 증감수, isolClearCnt: 격리해제수, isolIngCnt: 격리중환자수
+  // localOccCnt: 지역발생수, overFlowCnt: 해외유입자 수 qurRate: 10만명당 발생률 seq: 해당 정보 고유번호 stdDay: 기준일
 }
 
 export {

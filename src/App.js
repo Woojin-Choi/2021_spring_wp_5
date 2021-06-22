@@ -51,18 +51,37 @@ function App() {
         if(!user) setUser(localStorage.LOGIN_KEY)
     }
 
-    // if(!vLocations) {
-    //
-    //     console.log("되나")
-    //     getVLocation()
-    //     .then(_info => {
-    //         console.log(_info, "얘는");
-    //         setVLocations(_info)
-    //     })
-    //
-    //     console.log(vLocations);
-    //     console.log("출력");
-    // }
+    const dbAdd = (category, data) => { // db에 추가하는 함수
+        db.collection(category).add(data);
+    }
+
+    const [messages, setMessages] = useState([]);
+    const [myChat, setMyChat] = useState(null);
+
+    const messagesLog = []
+    const loadChatBox = []
+    const handleChange = ({ target: { value } }) => setMyChat({id : user, chat : value, date : new Date()});
+
+    const addMessages = () => {
+        if (user) {
+            dbAdd("allChatLog", myChat);
+        } else {
+            alert("로그인 이후 사용가능합니다")
+        }
+    }
+
+    useEffect(() => {
+        db.collection("allChatLog").get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    messagesLog.push(doc.data())
+                })
+                messagesLog.slice(0).sort(function(a,b) {
+                    return a.date < b.date ? -1 : a.date > b.date ? 1: 0;
+                }).map(elem => loadChatBox.push(elem.chat))
+                setMessages(loadChatBox)
+            })
+    }, []);
 
     // const createAccount =(e)=> {
     //     e.preventDefault();
@@ -106,43 +125,6 @@ function App() {
             })
     }
 
-    // const locationCheck = (e) => {
-    //     setSelectedLoc(e.orgZipaddr);
-    //     const _locInfo = {
-    //         "전화번호": `${e.orgTlno}`,
-    //         "진료시간": `${e.sttTm} ~ ${e.endTm}`,
-    //         "점심시간": `${e.lunchSttTm} ~ ${e.lunchEndTm}`
-    //     }
-    //     console.log(_locInfo)
-    //     setLocInfo(_locInfo)
-    // }
-    //
-    // const favoriteAdd = (elem) => {
-    //     if(user) {
-    //         elem.userId = user;
-    //         const myFav = [];
-    //         let redundancy = false;
-    //         db.collection("favoriteOrg").get()
-    //             .then((querySnapshot) => {
-    //                 querySnapshot.forEach((doc) => {
-    //                     if (doc.data().userId === user) {
-    //                         myFav.push(doc.data())
-    //                     }
-    //                 })
-    //                 myFav.map((e) => {
-    //                     if (e.orgcd === elem.orgcd) redundancy = true;
-    //                 })
-    //
-    //                 if(!redundancy) dbAdd("favoriteOrg",elem);
-    //                 else {alert("즐겨찾기에 이미 추가된 병원입니다")}
-    //             })
-    //     }
-    //
-    //     else {
-    //         alert("로그인 이후 사용가능합니다")
-    //     }
-    // }
-
     const favoriteCheck = async (e) =>{
         if(e==="u") setFavoritePanel(false);
         else {
@@ -178,12 +160,7 @@ function App() {
     },[])
 
 
-    // const dbAdd = (category, data) => { // db에 추가하는 함수
-    //    db.collection(category).add(data);
-    // }
-    //
-    // //https://firebase.google.com/docs/firestore/manage-data/delete-data?hl=ko 삭제는 여기 참고
-    //
+
     // useEffect(()=>{ // db 내용 출력
     //     db.collection("datas").get().then((querySanpshot)=>{
     //         querySanpshot.forEach((doc) => {
@@ -192,6 +169,7 @@ function App() {
     //     })
     // }, [])
     //
+    //https://firebase.google.com/docs/firestore/manage-data/delete-data?hl=ko 삭제는 여기 참고
 
     // useEffect(()=> {
     //
@@ -200,17 +178,17 @@ function App() {
     //         .then((result)=>{
     //         console.log(result);
     //         });
-
-        // firebase.auth().signInWithEmailAndPassword("aa@a.com", "aa")
-        //     .then((res) => {
-        //         console.log("signed in!");
-        //         console.log(res);
-        //         firebase.user;
-        //     })
-        //     .catch(function (error) {
-        //         console.log(error);
-        //     });
-
+    //
+    //     firebase.auth().signInWithEmailAndPassword("aa@a.com", "aa")
+    //         .then((res) => {
+    //             console.log("signed in!");
+    //             console.log(res);
+    //             firebase.user;
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         });
+    //
     // },[]);
 
     return(
@@ -254,8 +232,18 @@ function App() {
                                         color="primary">구글아이디로 로그인</Button>
                             }
                         </div>
-                        <div id={"news"}>
-                            응원의 한마디
+                        <div id={"cheerChat"}>
+                            <div>
+                                <h2>응원 메시지</h2>
+                            </div>
+                            <form id="chatForm" onSubmit={addMessages}>
+                                <input name="chat-message" type="text" onChange={handleChange} />
+                                {console.log(myChat)}
+                                <input type="submit" value = "입력" />
+                            </form>
+                            { messages.map(elem => {
+                                return(<div> {elem} </div>)
+                            })}
                         </div>
                     </div>
 
