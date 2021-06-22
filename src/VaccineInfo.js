@@ -73,7 +73,6 @@ export default function VaccineInfo(props) {
             })
     }
 
-
     const favoriteDel = (elem) => {
         if(props.user) {
             elem.userId = props.user;
@@ -119,26 +118,29 @@ export default function VaccineInfo(props) {
                             <div>
                                 <h2>즐겨찾는 병원 (가나다 순)</h2>
                                 {
-                                    props.favLoc.slice(0).sort(function (a, b) {
-                                        return a.orgnm < b.orgnm ? -1 : a.orgnm > b.orgnm ? 1 : 0;
-                                    }).map(elem => {
-                                        return (
-                                            <div className="favLocationBox" key={elem.orgcd}>
-                                                <ul>
-                                                    <li>기관명: {elem.orgnm}</li>
-                                                    <li>전화번호: {elem.orgTlno}</li>
-                                                    <li>주소: {elem.orgZipaddr}</li>
-                                                    <li>당일 휴무여부: {elem.hldyYn}</li>
-                                                </ul>
-                                                <ButtonGroup color="primary" aria-label="outlined primary button group">
-                                                    <Button class="locationButton" variant="outlined" color="primary"
-                                                            onClick={() => locationCheck(elem)}>위치 확인</Button>
-                                                    <Button id="favoriteDelButton" size="small"
-                                                            startIcon={<AddCircleOutlineRoundedIcon/>}
-                                                            onClick={() => favoriteDel(elem)}>즐겨찾기 삭제</Button>
-                                                </ButtonGroup>
-                                            </div>);
-                                    })
+                                    props.favLoc ?
+                                        <div>즐겨찾기를 추가해보세요!</div>
+                                        :
+                                        props.favLoc.slice(0).sort(function (a, b) {
+                                            return a.orgnm < b.orgnm ? -1 : a.orgnm > b.orgnm ? 1 : 0;
+                                        }).map(elem => {
+                                            return (
+                                                <div className="favLocationBox" key={elem.orgcd}>
+                                                    <ul>
+                                                        <li>기관명: {elem.orgnm}</li>
+                                                        <li>전화번호: {elem.orgTlno}</li>
+                                                        <li>주소: {elem.orgZipaddr}</li>
+                                                        <li>당일 휴무여부: {elem.hldyYn}</li>
+                                                    </ul>
+                                                    <ButtonGroup color="primary" aria-label="outlined primary button group">
+                                                        <Button class="locationButton" variant="outlined" color="primary"
+                                                                onClick={() => locationCheck(elem)}>위치 확인</Button>
+                                                        <Button id="favoriteDelButton" size="small"
+                                                                startIcon={<AddCircleOutlineRoundedIcon/>}
+                                                                onClick={() => favoriteDel(elem)}>즐겨찾기 삭제</Button>
+                                                    </ButtonGroup>
+                                                </div>);
+                                        })
                                 }
                             </div>
                             :
