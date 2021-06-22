@@ -71,6 +71,16 @@
   justify-content: center;
 }
 
+.favLocationBox {
+  border: 1px solid darkgray;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+  justify-items:center;
+  justify-content: center;
+}
+
 .rightSide{
   display: flex;
   flex-direction: column;

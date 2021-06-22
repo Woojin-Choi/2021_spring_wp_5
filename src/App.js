@@ -120,18 +120,28 @@ function App() {
 
     const favoriteAdd = (elem) => {
         if(user) {
-            elem.userId=user;
-            dbAdd("favoriteOrg",elem)}
+            elem.userId = user;
+            const myFav = [];
+            let redundancy = false;
+            db.collection("favoriteOrg").get()
+                .then((querySnapshot) => {
+                    querySnapshot.forEach((doc) => {
+                        if (doc.data().userId === user) {
+                            myFav.push(doc.data())
+                        }
+                    })
+                    myFav.map((e) => {
+                        if (e.orgcd === elem.orgcd) redundancy = true;
+                    })
+
+                    if(!redundancy) dbAdd("favoriteOrg",elem);
+                    else {alert("즐겨찾기에 이미 추가된 병원입니다")}
+                })
+        }
+
         else {
             alert("로그인 이후 사용가능합니다")
         }
-    }
-
-    const getFavorite = async () => {
-
-
-        // setFavLoc(db.collection.get("favoriteOrg"))
-
     }
 
     const favoriteCheck = async (e) =>{
@@ -159,7 +169,7 @@ function App() {
             .then(_info => {
                 setVLocations(_info)
             })
-    },[])
+    },[favoritePanel])
 
 
     const dbAdd = (category, data) => { // db에 추가하는 함수
@@ -219,13 +229,13 @@ function App() {
                                     {
                                         favoritePanel?
                                             <div>
-                                                <h2>즐겨찾는 병원</h2>
+                                                <h2>즐겨찾는 병원 (가나다 순)</h2>
                                                 {
                                                     favLoc.slice(0).sort(function(a,b) {
                                                         return a.orgnm < b.orgnm ? -1 : a.orgnm > b.orgnm ? 1: 0;
                                                     }).map(elem => {
                                                         return (
-                                                            <div className="locationBox" key={elem.orgcd}>
+                                                            <div className="favLocationBox" key={elem.orgcd}>
                                                                 <ul>
                                                                     <li>기관명: {elem.orgnm}</li>
                                                                     <li>전화번호: {elem.orgTlno}</li>
