@@ -11,7 +11,6 @@ export default function VaccineInfo(props) {
     const [vLocations, setVLocations] = useState([]);
     const [selectedLoc, setSelectedLoc] = useState(null);
     const [locInfo, setLocInfo] = useState({});
-
     const db = firebase.firestore();
 
     const dbAdd = (category, data) => { // db에 추가하는 함수
@@ -29,6 +28,8 @@ export default function VaccineInfo(props) {
         setLocInfo(_locInfo)
     }
 
+
+
     const favoriteAdd = (elem) => {
         if(props.user) {
             elem.userId = props.user;
@@ -37,7 +38,9 @@ export default function VaccineInfo(props) {
             db.collection("favoriteOrg").get()
                 .then((querySnapshot) => {
                     querySnapshot.forEach((doc) => {
+                        console.log(doc,"doc이 뭐지")
                         if (doc.data().userId === props.user) {
+                            console.log(doc.data(),"doc.date는 뭐지")
                             myFav.push(doc.data())
                         }
                     })
@@ -45,8 +48,51 @@ export default function VaccineInfo(props) {
                         if (e.orgcd === elem.orgcd) redundancy = true;
                     })
 
-                    if(!redundancy) dbAdd("favoriteOrg",elem);
+                    if(!redundancy) {
+                        const doc_id=props.user+"_"+elem.orgcd;
+                        db.collection("favoriteOrg").doc(doc_id).set(elem);
+                        alert("즐겨찾기에 추가되었습니다")
+                    }
                     else {alert("즐겨찾기에 이미 추가된 병원입니다")}
+                })
+        }
+        else {alert("로그인 이후 사용가능합니다")}
+    }
+
+    const updateFavLoc = () => {
+        const myFav = [];
+        db.collection("favoriteOrg").get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    if(doc.data().userId === props.user) {
+                        myFav.push(doc.data())
+                    }
+                })
+
+                props.setFavLoc(myFav)
+            })
+    }
+
+
+    const favoriteDel = (elem) => {
+        if(props.user) {
+            elem.userId = props.user;
+            db.collection("favoriteOrg").get()
+                .then((querySnapshot) => {
+                    querySnapshot.forEach((doc) => {
+                        if (doc.data().userId === props.user) {
+                            if(doc.data().orgcd === elem.orgcd) {
+                                const doc_id=props.user+"_"+elem.orgcd;
+                                db.collection("favoriteOrg").doc(doc_id).delete()
+                                    .then(() => {
+                                        updateFavLoc();
+                                        alert("즐겨찾기에서 삭제되었습니다.");
+                                    }).catch((error) => {
+                                        console.error("Error removing document: ", error);
+                                    });
+                            }
+                        }
+                    })
                 })
         }
         else {alert("로그인 이후 사용가능합니다")}
@@ -84,8 +130,13 @@ export default function VaccineInfo(props) {
                                                     <li>주소: {elem.orgZipaddr}</li>
                                                     <li>당일 휴무여부: {elem.hldyYn}</li>
                                                 </ul>
-                                                <Button id="locationButton" variant="outlined" color="primary"
-                                                        onClick={() => locationCheck(elem)}>위치 확인</Button>
+                                                <ButtonGroup color="primary" aria-label="outlined primary button group">
+                                                    <Button class="locationButton" variant="outlined" color="primary"
+                                                            onClick={() => locationCheck(elem)}>위치 확인</Button>
+                                                    <Button id="favoriteDelButton" size="small"
+                                                            startIcon={<AddCircleOutlineRoundedIcon/>}
+                                                            onClick={() => favoriteDel(elem)}>즐겨찾기 삭제</Button>
+                                                </ButtonGroup>
                                             </div>);
                                     })
                                 }
@@ -106,9 +157,9 @@ export default function VaccineInfo(props) {
                                                     <li>당일 휴무여부: {elem.hldyYn}</li>
                                                 </ul>
                                                 <ButtonGroup color="primary" aria-label="outlined primary button group">
-                                                    <Button id="locationButton" onClick={() => locationCheck(elem)}>위치
+                                                    <Button class="locationButton" onClick={() => locationCheck(elem)}>위치
                                                         확인</Button>
-                                                    <Button id="favoriteButton" size="small"
+                                                    <Button id="favoriteAddButton" size="small"
                                                             startIcon={<AddCircleOutlineRoundedIcon/>}
                                                             onClick={() => favoriteAdd(elem)}>즐겨찾기 추기</Button>
                                                 </ButtonGroup>

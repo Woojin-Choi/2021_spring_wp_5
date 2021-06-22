@@ -38,6 +38,8 @@ firebase.auth().onAuthStateChanged(function(user){
 
 function App() {
 
+    // const [email, setEmail] = useState(null);
+    // const [password, setPassword] = useState(null);
     const [vLocations, setVLocations] = useState([]);
     const [user, setUser] = useState(null);
     const [favoritePanel, setFavoritePanel] = useState(false);
@@ -203,7 +205,7 @@ function App() {
                                 <StatTable/>
                         </div>
                         <div id={"vaccineInfo"}>
-                            <VaccineInfo user={user} favoritePanel={favoritePanel} favLoc={favLoc}/>
+                            <VaccineInfo user={user} favoritePanel={favoritePanel} favLoc={favLoc} setFavLoc={setFavLoc}/>
                         </div>
 
                     </div>
