@@ -224,7 +224,6 @@ function App() {
                                 <Map selectedLoc={selectedLoc} locInfo={locInfo}/>
                             </div>
                             <div id={"vaccinationLocation"}>
-
                                 <div className="location">
                                     {
                                         favoritePanel?
@@ -242,7 +241,7 @@ function App() {
                                                                     <li>주소: {elem.orgZipaddr}</li>
                                                                     <li>당일 휴무여부: {elem.hldyYn}</li>
                                                                 </ul>
-                                                                    <Button id="locationButton" variant="outlined" color="primary" onClick={()=>locationCheck(elem)}>위치 확인</Button>
+                                                                <Button id="locationButton" variant="outlined" color="primary" onClick={()=>locationCheck(elem)}>위치 확인</Button>
                                                             </div>);
                                                     })
                                                 }

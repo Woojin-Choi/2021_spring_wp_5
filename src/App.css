@@ -43,27 +43,31 @@
 
 #map {
   height: 500px;
-  width: 70%;
+  width: 60%;
+  margin-right: 10px;
   padding: 10px 50px 50px 50px;
   border: 2px solid cornflowerblue;
 }
 
 #vaccinationLocation {
   height: 500px;
-  width: 30%;
+  width: 40%;
+  margin-left: 10px;
   padding: 10px 50px 50px 50px;
   border: 2px solid cornflowerblue;
 }
 
 .location {
-  height: 455px;
+  height: 500px;
   overflow-y: scroll;
   overflow-x: hidden;
 }
 
 .locationBox {
   border: 1px solid darkgray;
-  height: 200px;
+  padding: 5px 5px 15px 5px;
+  height: auto;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items:center;
@@ -73,7 +77,9 @@
 
 .favLocationBox {
   border: 1px solid darkgray;
-  height: 200px;
+  padding: 5px 5px 15px 5px;
+  height: auto;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items:center;

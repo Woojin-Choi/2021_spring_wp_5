@@ -70,6 +70,43 @@ const getVLocation = async () => {
   return info.data;
 }
 
+// const express = require('express');
+// const app = express();
+// const client_id = 'EvLLF9MO_6aBcH29MKWJ';
+// const client_secret = 'csk4CexOmi';
+// app.get('/search/blog', function (req, res) {
+//   const api_url = 'https://openapi.naver.com/v1/search/shop?query=' + encodeURI(req.query.query); // json 결과
+// //   var api_url = 'https://openapi.naver.com/v1/search/blog.xml?query=' + encodeURI(req.query.query); // xml 결과
+//   const request = require('request');
+//   const options = {
+//     url: api_url,
+//     headers: {'X-Naver-Client-Id':client_id, 'X-Naver-Client-Secret': client_secret}
+//   };
+//   request.get(options, function (error, response, body) {
+//     if (!error && response.statusCode == 200) {
+//       res.writeHead(200, {'Content-Type': 'text/json;charset=utf-8'});
+//       res.end(body);
+//     } else {
+//       res.status(response.statusCode).end();
+//       console.log('error = ' + response.statusCode);
+//     }
+//   });
+// });
+// app.listen(3000, function () {
+//   console.log('http://127.0.0.1:3000/search/blog?query=검색어 app listening on port 3000!');
+// });
+
+// const getNews = async () => {
+//   const url="https://openapi.naver.com/v1/search/news.json"
+//   const query="코로나"
+//   const res = await fetch(`${url}?${query}`, {
+//     method: 'GET',
+//     headers: {Authorization: `Infuser ${AUTH_KEY}`, accept: "application/json`"}
+//   });
+// }
+
+
+
 // getVLocation();
 // const getVLocation2 = async (extraHeaders={}) => {
 //   const defaultUrl2 = 'https://infuser.odcloud.kr/oas/docs?namespace=15077586/v1'
