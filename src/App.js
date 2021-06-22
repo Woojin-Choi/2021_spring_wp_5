@@ -8,7 +8,9 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
 
-import {getVLocation} from './Api'
+import {getVLocation, getCovidStatus} from './Api'
+import StatTable from "./StatTable";
+import VaccineInfo from "./VaccineInfo";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDDP4UaX_T76Q1l4tGOmVebgbSTJhScj6E",
@@ -45,6 +47,7 @@ function App() {
     const [user, setUser] = useState(null);
     const [favoritePanel, setFavoritePanel] = useState(false);
     const [favLoc, setFavLoc] = useState([]);
+    const [covidStatus, setCovidStatus] = useState([]);
 
     const db = firebase.firestore();
 
@@ -107,42 +110,42 @@ function App() {
             })
     }
 
-    const locationCheck = (e) => {
-        setSelectedLoc(e.orgZipaddr);
-        const _locInfo = {
-            "전화번호": `${e.orgTlno}`,
-            "진료시간": `${e.sttTm} ~ ${e.endTm}`,
-            "점심시간": `${e.lunchSttTm} ~ ${e.lunchEndTm}`
-        }
-        console.log(_locInfo)
-        setLocInfo(_locInfo)
-    }
-
-    const favoriteAdd = (elem) => {
-        if(user) {
-            elem.userId = user;
-            const myFav = [];
-            let redundancy = false;
-            db.collection("favoriteOrg").get()
-                .then((querySnapshot) => {
-                    querySnapshot.forEach((doc) => {
-                        if (doc.data().userId === user) {
-                            myFav.push(doc.data())
-                        }
-                    })
-                    myFav.map((e) => {
-                        if (e.orgcd === elem.orgcd) redundancy = true;
-                    })
-
-                    if(!redundancy) dbAdd("favoriteOrg",elem);
-                    else {alert("즐겨찾기에 이미 추가된 병원입니다")}
-                })
-        }
-
-        else {
-            alert("로그인 이후 사용가능합니다")
-        }
-    }
+    // const locationCheck = (e) => {
+    //     setSelectedLoc(e.orgZipaddr);
+    //     const _locInfo = {
+    //         "전화번호": `${e.orgTlno}`,
+    //         "진료시간": `${e.sttTm} ~ ${e.endTm}`,
+    //         "점심시간": `${e.lunchSttTm} ~ ${e.lunchEndTm}`
+    //     }
+    //     console.log(_locInfo)
+    //     setLocInfo(_locInfo)
+    // }
+    //
+    // const favoriteAdd = (elem) => {
+    //     if(user) {
+    //         elem.userId = user;
+    //         const myFav = [];
+    //         let redundancy = false;
+    //         db.collection("favoriteOrg").get()
+    //             .then((querySnapshot) => {
+    //                 querySnapshot.forEach((doc) => {
+    //                     if (doc.data().userId === user) {
+    //                         myFav.push(doc.data())
+    //                     }
+    //                 })
+    //                 myFav.map((e) => {
+    //                     if (e.orgcd === elem.orgcd) redundancy = true;
+    //                 })
+    //
+    //                 if(!redundancy) dbAdd("favoriteOrg",elem);
+    //                 else {alert("즐겨찾기에 이미 추가된 병원입니다")}
+    //             })
+    //     }
+    //
+    //     else {
+    //         alert("로그인 이후 사용가능합니다")
+    //     }
+    // }
 
     const favoriteCheck = async (e) =>{
         if(e==="u") setFavoritePanel(false);
@@ -171,10 +174,17 @@ function App() {
             })
     },[favoritePanel])
 
+    useEffect(()=>{
+        getCovidStatus()
+            .then(_info => {
+                setCovidStatus(_info)
+            })
+    },[])
 
-    const dbAdd = (category, data) => { // db에 추가하는 함수
-       db.collection(category).add(data);
-    }
+
+    // const dbAdd = (category, data) => { // db에 추가하는 함수
+    //    db.collection(category).add(data);
+    // }
     //
     // //https://firebase.google.com/docs/firestore/manage-data/delete-data?hl=ko 삭제는 여기 참고
     //
@@ -217,62 +227,70 @@ function App() {
                 <Box className={"topLevel"}>
                     <div className={"leftSide"}>
                         <div id={"covidConfirmed"}>
-                            확진자 정보 미구현
-                        </div>
-                        <div className={"vaccineInfo"}>
-                            <div id={"map"}>
-                                <Map selectedLoc={selectedLoc} locInfo={locInfo}/>
-                            </div>
-                            <div id={"vaccinationLocation"}>
-                                <div className="location">
-                                    {
-                                        favoritePanel?
-                                            <div>
-                                                <h2>즐겨찾는 병원 (가나다 순)</h2>
-                                                {
-                                                    favLoc.slice(0).sort(function(a,b) {
-                                                        return a.orgnm < b.orgnm ? -1 : a.orgnm > b.orgnm ? 1: 0;
-                                                    }).map(elem => {
-                                                        return (
-                                                            <div className="favLocationBox" key={elem.orgcd}>
-                                                                <ul>
-                                                                    <li>기관명: {elem.orgnm}</li>
-                                                                    <li>전화번호: {elem.orgTlno}</li>
-                                                                    <li>주소: {elem.orgZipaddr}</li>
-                                                                    <li>당일 휴무여부: {elem.hldyYn}</li>
-                                                                </ul>
-                                                                <Button id="locationButton" variant="outlined" color="primary" onClick={()=>locationCheck(elem)}>위치 확인</Button>
-                                                            </div>);
-                                                    })
-                                                }
-                                            </div>
-                                            :
-                                            <div>
-                                                <h2>백신 접종처 (가나다 순)</h2>
-                                                {
-                                                    vLocations.slice(0).sort(function(a,b) {
-                                                        return a.orgnm < b.orgnm ? -1 : a.orgnm > b.orgnm ? 1: 0;
-                                                     }).map(elem => {
-                                                         return (
-                                                            <div className="locationBox" key={elem.orgcd}>
-                                                                <ul>
-                                                                    <li>기관명: {elem.orgnm}</li>
-                                                                    <li>전화번호: {elem.orgTlno}</li>
-                                                                    <li>주소: {elem.orgZipaddr}</li>
-                                                                    <li>당일 휴무여부: {elem.hldyYn}</li>
-                                                                </ul>
-                                                                <ButtonGroup color="primary" aria-label="outlined primary button group">
-                                                                    <Button id="locationButton" onClick={()=>locationCheck(elem)}>위치 확인</Button>
-                                                                    <Button id="favoriteButton" size="small" startIcon={<AddCircleOutlineRoundedIcon/>} onClick={()=>favoriteAdd(elem)}>즐겨찾기 추기</Button>
-                                                                </ButtonGroup>
-                                                            </div>);
-                                                    })
-                                                }
-                                            </div>
-                                    }
-                                </div>
+                            <div>
+                                <StatTable/>
                             </div>
                         </div>
+
+                    </div>
+
+                    <div className={"middle"}>
+
+                        <VaccineInfo user={user} favoritePanel={favoritePanel} favLoc={favLoc}/>
+                        {/*<div className={"vaccineInfo"}>*/}
+                        {/*    <div id={"map"}>*/}
+                        {/*        <Map selectedLoc={selectedLoc} locInfo={locInfo}/>*/}
+                        {/*    </div>*/}
+                        {/*    <div id={"vaccinationLocation"}>*/}
+                        {/*        <div className="location">*/}
+                        {/*            {*/}
+                        {/*                favoritePanel?*/}
+                        {/*                    <div>*/}
+                        {/*                        <h2>즐겨찾는 병원 (가나다 순)</h2>*/}
+                        {/*                        {*/}
+                        {/*                            favLoc.slice(0).sort(function(a,b) {*/}
+                        {/*                                return a.orgnm < b.orgnm ? -1 : a.orgnm > b.orgnm ? 1: 0;*/}
+                        {/*                            }).map(elem => {*/}
+                        {/*                                return (*/}
+                        {/*                                    <div className="favLocationBox" key={elem.orgcd}>*/}
+                        {/*                                        <ul>*/}
+                        {/*                                            <li>기관명: {elem.orgnm}</li>*/}
+                        {/*                                            <li>전화번호: {elem.orgTlno}</li>*/}
+                        {/*                                            <li>주소: {elem.orgZipaddr}</li>*/}
+                        {/*                                            <li>당일 휴무여부: {elem.hldyYn}</li>*/}
+                        {/*                                        </ul>*/}
+                        {/*                                        <Button id="locationButton" variant="outlined" color="primary" onClick={()=>locationCheck(elem)}>위치 확인</Button>*/}
+                        {/*                                    </div>);*/}
+                        {/*                            })*/}
+                        {/*                        }*/}
+                        {/*                    </div>*/}
+                        {/*                    :*/}
+                        {/*                    <div>*/}
+                        {/*                        <h2>백신 접종처 (가나다 순)</h2>*/}
+                        {/*                        {*/}
+                        {/*                            vLocations.slice(0).sort(function(a,b) {*/}
+                        {/*                                return a.orgnm < b.orgnm ? -1 : a.orgnm > b.orgnm ? 1: 0;*/}
+                        {/*                            }).map(elem => {*/}
+                        {/*                                return (*/}
+                        {/*                                    <div className="locationBox" key={elem.orgcd}>*/}
+                        {/*                                        <ul>*/}
+                        {/*                                            <li>기관명: {elem.orgnm}</li>*/}
+                        {/*                                            <li>전화번호: {elem.orgTlno}</li>*/}
+                        {/*                                            <li>주소: {elem.orgZipaddr}</li>*/}
+                        {/*                                            <li>당일 휴무여부: {elem.hldyYn}</li>*/}
+                        {/*                                        </ul>*/}
+                        {/*                                        <ButtonGroup color="primary" aria-label="outlined primary button group">*/}
+                        {/*                                            <Button id="locationButton" onClick={()=>locationCheck(elem)}>위치 확인</Button>*/}
+                        {/*                                            <Button id="favoriteButton" size="small" startIcon={<AddCircleOutlineRoundedIcon/>} onClick={()=>favoriteAdd(elem)}>즐겨찾기 추기</Button>*/}
+                        {/*                                        </ButtonGroup>*/}
+                        {/*                                    </div>);*/}
+                        {/*                            })*/}
+                        {/*                        }*/}
+                        {/*                    </div>*/}
+                        {/*            }*/}
+                        {/*        </div>*/}
+                        {/*    </div>*/}
+                        {/*</div>*/}
                     </div>
 
                     <div className={"rightSide"}>
@@ -298,7 +316,7 @@ function App() {
                             }
                         </div>
                         <div id={"news"}>
-                            뉴스 미구현
+                            응원의 한마디
                         </div>
                     </div>
 
