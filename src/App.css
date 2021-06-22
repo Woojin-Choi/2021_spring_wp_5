@@ -111,15 +111,16 @@
   flex-direction: column;
 }
 
-#news {
-  height: 850px;
-  width: 300px;
-  padding: 50px;
-  margin: 5px;
-  border: 2px solid cornflowerblue;
-}
-
 .rightSideBtn {
   margin-top: 10px !important;
+}
+
+#cheerChat {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  height: 900px;
+  margin-top: 30px;
+  border: 2px solid cornflowerblue;
 }
 
