@@ -202,11 +202,10 @@ function App() {
                         <div id={"covidConfirmed"}>
                                 <StatTable/>
                         </div>
+                        <div id={"vaccineInfo"}>
+                            <VaccineInfo user={user} favoritePanel={favoritePanel} favLoc={favLoc}/>
+                        </div>
 
-                    </div>
-
-                    <div className={"middle"}>
-                        <VaccineInfo user={user} favoritePanel={favoritePanel} favLoc={favLoc}/>
                     </div>
 
                     <div className={"rightSide"}>
