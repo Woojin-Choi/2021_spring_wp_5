@@ -1,6 +1,6 @@
 import './App.css'
 import React, {useState, useEffect} from 'react'
-import {Button, Box} from "@material-ui/core";
+import {Button, Box, TextField} from "@material-ui/core";
 
 import firebase from "firebase/app";
 import "firebase/auth";
@@ -257,9 +257,9 @@ function App() {
                                 <h2>전국민 응원 한마디!</h2>
                             </div>
                             <form id="chatForm" onSubmit={addMessages}>
-                                <input name="chat-message" type="text" onChange={handleChange} />
+                                <TextField id="inputMessage" name="chat-message" type="text" onChange={handleChange}/>
                                 {console.log(myChat)}
-                                <input type="submit" value = "입력" />
+                                <Button id="inputBtn" type="submit" variant={"outlined"}>입력</Button>
                             </form>
                             <div id={"chatBox"}>
                                 { messages.map(elem => {
