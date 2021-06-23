@@ -10,6 +10,7 @@ import {getVLocation, getCovidStatus} from './Api'
 import StatTable from "./StatTable";
 import VaccineInfo from "./VaccineInfo";
 import LoginPanel from "./Login";
+import CheerChat from "./CheerChat"
 
 const firebaseConfig = {
     apiKey: "AIzaSyBg0dSBCz--2hhDtSeLQhwM-hKKi0FitF8",
@@ -41,55 +42,55 @@ function App() {
     const [favoritePanel, setFavoritePanel] = useState(false);
     const [favLoc, setFavLoc] = useState([]);
     const [covidStatus, setCovidStatus] = useState([]);
-
+    const [messages, setMessages] = useState([]);
+    const [myChat, setMyChat] = useState(null);
     const db = firebase.firestore();
 
     if(localStorage.LOGIN_KEY) {
         if(!user) setUser(localStorage.LOGIN_KEY)
     }
 
-    const dbAdd = (category, data) => { // db에 추가하는 함수
-        db.collection(category).add(data);
-    }
+    // const dbAdd = (category, data) => { // db에 추가하는 함수
+    //     db.collection(category).add(data);
+    // }
 
-    const [messages, setMessages] = useState([]);
-    const [myChat, setMyChat] = useState(null);
 
-    const messagesLog = []
-    const loadChatBox = []
-    const handleChange = ({ target: { value } }) => setMyChat({id : user, chat : value, date : new Date()});
 
-    const addMessages = (e) => {
-        e.preventDefault();
-        if (user) {
-            dbAdd("allChatLog", myChat);
-            db.collection("allChatLog").get()
-            .then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    messagesLog.push(doc.data())
-                })
-                messagesLog.slice(0).sort(function(a,b) {
-                    return a.date < b.date ? 1 : a.date > b.date ? -1: 0;
-                }).map(elem => loadChatBox.push(elem.chat))
-                setMessages(loadChatBox)
-            })
-        } else {
-            alert("로그인 이후 사용가능합니다")
-        }
-    }
+    // const messagesLog = []
+    // const loadChatBox = []
+    // const handleChange = ({ target: { value } }) => setMyChat({id : user, chat : value, date : new Date()});
+    //
+    // const addMessages = (e) => {
+    //     e.preventDefault();
+    //     if (user) {
+    //         dbAdd("allChatLog", myChat);
+    //         db.collection("allChatLog").get()
+    //         .then((querySnapshot) => {
+    //             querySnapshot.forEach((doc) => {
+    //                 messagesLog.push(doc.data())
+    //             })
+    //             messagesLog.slice(0).sort(function(a,b) {
+    //                 return a.date < b.date ? 1 : a.date > b.date ? -1: 0;
+    //             }).map(elem => loadChatBox.push(elem.chat))
+    //             setMessages(loadChatBox)
+    //         })
+    //     } else {
+    //         alert("로그인 이후 사용가능합니다")
+    //     }
+    // }
 
-    const loadMessages = () => {
-        db.collection("allChatLog").get()
-            .then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    messagesLog.push(doc.data())
-                })
-                messagesLog.slice(0).sort(function(a,b) {
-                    return a.date < b.date ? -1 : a.date > b.date ? 1: 0;
-                }).map(elem => loadChatBox.push(elem.chat))
-                setMessages(loadChatBox)
-            })
-    }
+    // const loadMessages = () => {
+    //     db.collection("allChatLog").get()
+    //         .then((querySnapshot) => {
+    //             querySnapshot.forEach((doc) => {
+    //                 messagesLog.push(doc.data())
+    //             })
+    //             messagesLog.slice(0).sort(function(a,b) {
+    //                 return a.date < b.date ? -1 : a.date > b.date ? 1: 0;
+    //             }).map(elem => loadChatBox.push(elem.chat))
+    //             setMessages(loadChatBox)
+    //         })
+    // }
 
     // const loginFirebase = () => {
     //     const provider = new firebase.auth.GoogleAuthProvider();
@@ -153,10 +154,10 @@ function App() {
             })
     },[])
 
-    useEffect(() => {
-        const intervalControl = setInterval(() => {loadMessages()}, 5000)
-        return () => clearInterval(intervalControl);
-    }, [messages]);
+    // useEffect(() => {
+    //     const intervalControl = setInterval(() => {loadMessages()}, 5000)
+    //     return () => clearInterval(intervalControl);
+    // }, [messages]);
 
     return(
         <html className={"whole"}>
@@ -194,21 +195,22 @@ function App() {
                         {/*                color="primary">구글아이디로 로그인</Button>*/}
                         {/*    }*/}
                         {/*</div>*/}
-                        <div id={"cheerChat"}>
-                            <div>
-                                <h2>전국민 응원 한마디!</h2>
-                            </div>
-                            <form id="chatForm" onSubmit={addMessages}>
-                                <TextField id="inputMessage" name="chat-message" type="text" variant="outlined" onChange={handleChange}/>
-                                {console.log(myChat)}
-                                <Button id="inputBtn" type="submit" variant={"outlined"}>입력</Button>
-                            </form>
-                            <div id={"chatBox"}>
-                                { messages.map(elem => {
-                                    return(<div> {elem} </div>)
-                                })}
-                            </div>
-                        </div>
+                        <CheerChat db={db} user={user} myChat={myChat} setMyChat={setMyChat} messages={messages} setMessages={setMessages}/>
+                        {/*<div id={"cheerChat"}>*/}
+                        {/*    <div>*/}
+                        {/*        <h2>전국민 응원 한마디!</h2>*/}
+                        {/*    </div>*/}
+                        {/*    <form id="chatForm" onSubmit={addMessages}>*/}
+                        {/*        <TextField id="inputMessage" name="chat-message" type="text" variant="outlined" onChange={handleChange}/>*/}
+                        {/*        {console.log(myChat)}*/}
+                        {/*        <Button id="inputBtn" type="submit" variant={"outlined"}>입력</Button>*/}
+                        {/*    </form>*/}
+                        {/*    <div id={"chatBox"}>*/}
+                        {/*        { messages.map(elem => {*/}
+                        {/*            return(<div> {elem} </div>)*/}
+                        {/*        })}*/}
+                        {/*    </div>*/}
+                        {/*</div>*/}
                     </div>
                 </div>
             </body>
