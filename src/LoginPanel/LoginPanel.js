@@ -25,8 +25,6 @@ export default function LoginPanel(props) {
                 localStorage.clear();
                 props.setFavoritePanel(false);
                 props.setUser(null);
-
-                console.log(result);
             })
             .catch((error)=>{
                 const errorCode = error.code;
@@ -48,7 +46,6 @@ export default function LoginPanel(props) {
                         }
                     })
                     props.setFavLoc(myFav)
-                    console.log(myFav)
                 })
         }
     }
