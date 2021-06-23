@@ -1,10 +1,10 @@
-import './App.css'
-import Map from "./Map";
+import Map from "../Map";
 import {Button, ButtonGroup} from "@material-ui/core";
 import AddCircleOutlineRoundedIcon from "@material-ui/icons/AddCircleOutlineRounded";
 import React, {useEffect, useState} from "react";
-import {getVLocation} from "./Api";
+import {getVLocation} from "../Api";
 import firebase from "firebase";
+import './VaccineInfo.css'
 
 export default function VaccineInfo(props) {
 

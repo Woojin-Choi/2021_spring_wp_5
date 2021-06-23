@@ -2,9 +2,9 @@ import './App.css'
 import React, {useState, useEffect} from 'react'
 import {getVLocation, getCovidStatus} from './Api'
 import StatTable from "./StatTable";
-import VaccineInfo from "./VaccineInfo";
-import LoginPanel from "./LoginPanel";
-import CheerChat from "./CheerChat"
+import VaccineInfo from "./VaccineInfo/VaccineInfo";
+import LoginPanel from "./LoginPanel/LoginPanel";
+import CheerChat from "./CheerChat/CheerChat"
 
 import firebase from "firebase/app";
 import "firebase/auth";

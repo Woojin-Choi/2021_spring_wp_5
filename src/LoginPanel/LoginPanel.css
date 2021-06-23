@@ -1,0 +1,26 @@
+#login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 70px;
+    width: 100%;
+    padding: 50px;
+    margin: 5px;
+    border: 2px solid cornflowerblue;
+  }
+  
+  #loggedIn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  #menu {
+    display:flex;
+    flex-direction: column;
+    width: 80%;
+  }
+  
+  .rightSideBtn {
+    margin-top: 10px !important;
+  }

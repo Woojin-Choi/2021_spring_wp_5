@@ -30,65 +30,8 @@
   border: 2px solid cornflowerblue;
 }
 
-.vaccineInfo {
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-  justify-content: center;
-  width: 100%;
-}
-
-#map {
-  height: 500px;
-  width: 60%;
-  margin-right: 10px;
-  padding: 10px 50px 50px 50px;
-  border: 2px solid cornflowerblue;
-}
-
-#vaccinationLocation {
-  height: 540px;
-  width: 40%;
-  margin-left: 10px;
-  padding: 10px 50px 10px 50px;
-  border: 2px solid cornflowerblue;
-}
-
-.location {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  align-content: space-between;
-  height: 530px;
-  width: 100%;
-}
-
-.locationGroup {
-  display: flex;
-  flex-direction: column;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  padding-right: 4px;
-}
-
-.locationBox {
-  border: 1px solid darkgray;
-  height: auto;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  border: 2px solid cornflowerblue;
-  margin-top: 10px;
-}
-
-.btnGroup {
-  display: flex;
-  justify-content: center;
-  padding-bottom: 10px;
-}
-
 .page {
-  displat: flex;
+  display: flex;
   justify-content: center;
   margin-top: 20px;
 }
@@ -101,62 +44,3 @@
   padding: 50px;
   margin-right: 50px;
 }
-
-#login {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 70px;
-  width: 100%;
-  padding: 50px;
-  margin: 5px;
-  border: 2px solid cornflowerblue;
-}
-
-#loggedIn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-#menu {
-  display:flex;
-  flex-direction: column;
-  width: 80%;
-}
-
-.rightSideBtn {
-  margin-top: 10px !important;
-}
-
-#cheerChat {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  height: 800px;
-  padding: 50px;
-  margin-top: 30px;
-  border: 2px solid cornflowerblue;
-}
-#inputMessage {
-  width: 300px;
-}
-
-#inputBtn {
-  height: 57px;
-  margin-left: 5px;
-}
-
-#chatBox {
-  display: flex;
-  flex-direction: column;
-  width: 95%;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  margin-top: 15px;
-  margin-left: 8px;
-}
-
-
-
