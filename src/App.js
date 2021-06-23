@@ -255,7 +255,7 @@ function App() {
                         </div>
                         <div id={"cheerChat"}>
                             <div>
-                                <h2>응원 한마디</h2>
+                                <h2>전국민 응원 한마디!</h2>
                             </div>
                             <form id="chatForm" onSubmit={addMessages}>
                                 <input name="chat-message" type="text" onChange={handleChange} />

@@ -11,6 +11,7 @@ export default function VaccineInfo(props) {
     const [vLocations, setVLocations] = useState([]);
     const [selectedLoc, setSelectedLoc] = useState(null);
     const [locInfo, setLocInfo] = useState({});
+    const [page, setPage] = useState(1);
 
     const db = firebase.firestore();
 
@@ -89,12 +90,30 @@ export default function VaccineInfo(props) {
             })
     }
 
+    const pageLoad = (e) => {
+        if(e==="u") {
+            setPage(page + 1)
+            getVLocation(page)
+                .then(_info => {
+                    setVLocations(_info)
+                })
+        } else {
+            if(page>1) {
+                setPage(page - 1)
+                getVLocation(page)
+                    .then(_info => {
+                        setVLocations(_info)
+                    })
+            } else {alert("첫 페이지 입니다")}
+        }
+    }
+
     useEffect(()=>{
-        getVLocation()
+        getVLocation(page)
             .then(_info => {
                 setVLocations(_info)
             })
-    },[props.favoritePanel])
+    },[props.favoritePanel,page])
 
     return(
         <div className={"vaccineInfo"}>
@@ -164,6 +183,10 @@ export default function VaccineInfo(props) {
                                                 </div>);
                                         })
                                     }
+                                </div>
+                                <div className={"page"}>
+                                    <Button id="prevPage" color="primary" variant="outlined" onClick={() => pageLoad("d")}>이전 페이지</Button>
+                                    <Button id="nextPage" color="primary" variant="outlined" onClick={() => pageLoad("u")}>다음 페이지</Button>
                                 </div>
                             </div>
                     }
