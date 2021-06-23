@@ -38,7 +38,7 @@ const getVLocation = async () => {
   const AUTH_KEY = '/7IOSPMoyPtgQMbjrMUuHMSuO2IjSAO2gxgrKYU8zb5hPcSqXo7Z+LiHtuglidhA65F9qotVT7b4rocoZLXmCg==';
   const defaultUrl = 'https://api.odcloud.kr/api'
   const url = 'apnmOrg/v1/list'
-  const query = 'page=1&perPage=100' // 전체결과가 약 15000개인데, 15000개 한번에 부르니까 정상적으로 호출은 되는데 결과가 잘 안나오네요 page를 나누아야할듯..
+  const query = 'page=1&perPage=500' // 전체결과가 약 15000개인데, 15000개 한번에 부르니까 정상적으로 호출은 되는데 결과가 잘 안나오네요 page를 나누아야할듯..
   const res = await fetch(`${defaultUrl}/${url}?${query}`, {
     method: 'GET',
     headers: {Authorization: `Infuser ${AUTH_KEY}`, accept: "application/json`"}

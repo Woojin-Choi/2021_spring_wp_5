@@ -10,13 +10,23 @@ import {getVLocation, getCovidStatus} from './Api'
 import StatTable from "./StatTable";
 import VaccineInfo from "./VaccineInfo";
 
-const firebaseConfig = {
-    apiKey: "AIzaSyDDP4UaX_T76Q1l4tGOmVebgbSTJhScj6E",
-    authDomain: "venweb-final-project.firebaseapp.com",
-    projectId: "venweb-final-project",
-    storageBucket: "venweb-final-project.appspot.com",
-    messagingSenderId: "484267133169",
-    appId: "1:484267133169:web:0315353ef85ef78efb8150"
+// const firebaseConfig = {
+//     apiKey: "AIzaSyDDP4UaX_T76Q1l4tGOmVebgbSTJhScj6E",
+//     authDomain: "venweb-final-project.firebaseapp.com",
+//     projectId: "venweb-final-project",
+//     storageBucket: "venweb-final-project.appspot.com",
+//     messagingSenderId: "484267133169",
+//     appId: "1:484267133169:web:0315353ef85ef78efb8150"
+// };
+
+const firebaseConfig = { // 2번째 프로젝트
+    apiKey: "AIzaSyD5FUrz6ISizHUOkBEKaLqZjRMj_YEY5_E",
+    authDomain: "venweb-final2.firebaseapp.com",
+    projectId: "venweb-final2",
+    storageBucket: "venweb-final2.appspot.com",
+    messagingSenderId: "1052308964867",
+    appId: "1:1052308964867:web:86d804f436f27e76317036",
+    measurementId: "G-6NRDWBSJGL"
 };
 
 
@@ -81,7 +91,7 @@ function App() {
         }
     }
 
-    useEffect(() => {
+    const loadMessages = () => {
         db.collection("allChatLog").get()
             .then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
@@ -92,7 +102,8 @@ function App() {
                 }).map(elem => loadChatBox.push(elem.chat))
                 setMessages(loadChatBox)
             })
-    }, []);
+    }
+
 
     // const createAccount =(e)=> {
     //     e.preventDefault();
@@ -169,7 +180,10 @@ function App() {
             })
     },[])
 
-
+    useEffect(() => {
+        const intervalControl = setInterval(() => {loadMessages()}, 5000)
+        return () => clearInterval(intervalControl);
+    }, [messages]);
 
     // useEffect(()=>{ // db 내용 출력
     //     db.collection("datas").get().then((querySanpshot)=>{
@@ -241,7 +255,7 @@ function App() {
                         </div>
                         <div id={"cheerChat"}>
                             <div>
-                                <h2>응원 메시지</h2>
+                                <h2>응원 한마디</h2>
                             </div>
                             <form id="chatForm" onSubmit={addMessages}>
                                 <input name="chat-message" type="text" onChange={handleChange} />
