@@ -10,26 +10,14 @@ import {getVLocation, getCovidStatus} from './Api'
 import StatTable from "./StatTable";
 import VaccineInfo from "./VaccineInfo";
 
-// const firebaseConfig = { // 1번 프로젝트 (한도 초과)
-//     apiKey: "AIzaSyDDP4UaX_T76Q1l4tGOmVebgbSTJhScj6E",
-//     authDomain: "venweb-final-project.firebaseapp.com",
-//     projectId: "venweb-final-project",
-//     storageBucket: "venweb-final-project.appspot.com",
-//     messagingSenderId: "484267133169",
-//     appId: "1:484267133169:web:0315353ef85ef78efb8150"
-// };
-
-const firebaseConfig = { // 2번째 프로젝트
-    apiKey: "AIzaSyD5FUrz6ISizHUOkBEKaLqZjRMj_YEY5_E",
-    authDomain: "venweb-final2.firebaseapp.com",
-    projectId: "venweb-final2",
-    storageBucket: "venweb-final2.appspot.com",
-    messagingSenderId: "1052308964867",
-    appId: "1:1052308964867:web:86d804f436f27e76317036",
-    measurementId: "G-6NRDWBSJGL"
+const firebaseConfig = {
+    apiKey: "AIzaSyBg0dSBCz--2hhDtSeLQhwM-hKKi0FitF8",
+    authDomain: "venweb-pro-2.firebaseapp.com",
+    projectId: "venweb-pro-2",
+    storageBucket: "venweb-pro-2.appspot.com",
+    messagingSenderId: "949328612663",
+    appId: "1:949328612663:web:bbe56b744d5a49c6ae9eb2"
 };
-
-
 
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
@@ -221,7 +209,7 @@ function App() {
             </header>
 
             <body>
-                <Box className={"topLevel"}>
+                <div className={"topLevel"}>
                     <div className={"leftSide"}>
                         <div id={"covidConfirmed"}>
                                 <StatTable/>
@@ -242,10 +230,12 @@ function App() {
                             {localStorage.getItem("LOGIN_KEY") ?
                                 <div id={"loggedIn"}>
                                     <span>{localStorage.getItem("LOGIN_KEY")}님 반갑습니다!</span>
-                                    <Button className="rightSideBtn" id="logoutButton" onClick={logoutFirebase} variant="contained"
-                                            color="primary">로그아웃</Button>
-                                    <Button className="rightSideBtn" id="myFavorite" onClick={()=>favoritePanel?favoriteCheck("u"):favoriteCheck("c")} variant="contained"
-                                                    color="primary">{favoritePanel?'전체 목록 보기':'즐겨찾는 병원보기'}</Button>
+                                    <div id={"menu"}>
+                                        <Button className="rightSideBtn" id="myFavorite" onClick={()=>favoritePanel?favoriteCheck("u"):favoriteCheck("c")} variant="contained"
+                                                        color="primary">{favoritePanel?'전체 목록 보기':'즐겨찾는 병원보기'}</Button>
+                                        <Button className="rightSideBtn" id="logoutButton" onClick={logoutFirebase} variant="contained"
+                                                color="primary">로그아웃</Button>
+                                    </div>
                                 </div>
                                 :
                                 <Button id="loginButton" onClick={loginFirebase} variant="contained"
@@ -257,7 +247,7 @@ function App() {
                                 <h2>전국민 응원 한마디!</h2>
                             </div>
                             <form id="chatForm" onSubmit={addMessages}>
-                                <TextField id="inputMessage" name="chat-message" type="text" onChange={handleChange}/>
+                                <TextField id="inputMessage" name="chat-message" type="text" variant="outlined" onChange={handleChange}/>
                                 {console.log(myChat)}
                                 <Button id="inputBtn" type="submit" variant={"outlined"}>입력</Button>
                             </form>
@@ -268,7 +258,7 @@ function App() {
                             </div>
                         </div>
                     </div>
-                </Box>
+                </div>
             </body>
         </html>
     )
