@@ -40,6 +40,7 @@ export default function VaccineInfo(props) {
                     })
                     myFav.map((e) => {
                         if (e.orgcd === elem.orgcd) redundancy = true;
+                        return;
                     })
 
                     if(!redundancy) {

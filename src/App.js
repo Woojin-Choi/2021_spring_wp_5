@@ -11,12 +11,12 @@ import "firebase/auth";
 import "firebase/firestore";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyBg0dSBCz--2hhDtSeLQhwM-hKKi0FitF8",
-    authDomain: "venweb-pro-2.firebaseapp.com",
-    projectId: "venweb-pro-2",
-    storageBucket: "venweb-pro-2.appspot.com",
-    messagingSenderId: "949328612663",
-    appId: "1:949328612663:web:bbe56b744d5a49c6ae9eb2"
+    apiKey: "AIzaSyCUNkOnuyl5QUxllRKWVcF9lVRVOyAf8vw",
+    authDomain: "venweb-pro-3.firebaseapp.com",
+    projectId: "venweb-pro-3",
+    storageBucket: "venweb-pro-3.appspot.com",
+    messagingSenderId: "1006017505978",
+    appId: "1:1006017505978:web:87c64a6aaa438f6d237083"
 };
 
 if (!firebase.apps.length) {

@@ -13,7 +13,6 @@ export default function LoginPanel(props) {
                 props.setUser(localStorage.LOGIN_KEY)
             })
             .catch((error)=>{
-                const errorCode = error.code;
                 const errorMessage = error.message;
                 console.log(errorMessage);
             })
@@ -27,7 +26,6 @@ export default function LoginPanel(props) {
                 props.setUser(null);
             })
             .catch((error)=>{
-                const errorCode = error.code;
                 const errorMessage = error.message;
                 console.log(errorMessage);
             })
