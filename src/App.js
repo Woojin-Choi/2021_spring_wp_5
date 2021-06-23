@@ -10,7 +10,7 @@ import {getVLocation, getCovidStatus} from './Api'
 import StatTable from "./StatTable";
 import VaccineInfo from "./VaccineInfo";
 
-// const firebaseConfig = {
+// const firebaseConfig = { // 1번 프로젝트 (한도 초과)
 //     apiKey: "AIzaSyDDP4UaX_T76Q1l4tGOmVebgbSTJhScj6E",
 //     authDomain: "venweb-final-project.firebaseapp.com",
 //     projectId: "venweb-final-project",

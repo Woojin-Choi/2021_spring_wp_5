@@ -39,7 +39,7 @@ export default function StatTable() {
                         <TableCell align="right">누적 사망자 수</TableCell>
                         <TableCell align="right">누적 확진자 수</TableCell>
                         <TableCell align="right">기준일</TableCell>
-                    </TableRow>
+                    </TableRow>`
                 </TableHead>
                 <TableBody>
                     {
