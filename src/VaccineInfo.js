@@ -142,11 +142,11 @@ export default function VaccineInfo(props) {
                                                     </ul>
                                                     <ButtonGroup className="btnGroup" color="primary"
                                                                  aria-label="outlined primary button group">
-                                                        <Button class="locationButton" variant="outlined"
+                                                        <Button className="locationButton" variant="outlined"
                                                                 color="primary"
                                                                 onClick={() => locationCheck(elem)}>위치
                                                             확인</Button>
-                                                        <Button class="locationButton" onClick={() => infoAlert(elem)}>상세 정보</Button>
+                                                        <Button className="locationButton" onClick={() => infoAlert(elem)}>상세 정보</Button>
                                                         <Button id="favoriteDelButton" size="small"
                                                                 startIcon={<AddCircleOutlineRoundedIcon/>}
                                                                 onClick={() => delFavLoc(elem)}>즐겨찾기 삭제</Button>
