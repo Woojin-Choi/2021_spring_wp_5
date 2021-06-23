@@ -174,8 +174,8 @@ export default function VaccineInfo(props) {
                                                         <li>당일 휴무여부: {elem.hldyYn}</li>
                                                     </ul>
                                                     <ButtonGroup className="btnGroup" color="primary" aria-label="outlined primary button group">
-                                                        <Button class="locationButton" onClick={() => locationCheck(elem)}>위치 확인</Button>
-                                                        <Button class="locationButton" onClick={() => infoAlert(elem)}>상세 정보</Button>
+                                                        <Button className="locationButton" onClick={() => locationCheck(elem)}>위치 확인</Button>
+                                                        <Button className="locationButton" onClick={() => infoAlert(elem)}>상세 정보</Button>
                                                         <Button id="favoriteAddButton" size="small"
                                                                 startIcon={<AddCircleOutlineRoundedIcon/>}
                                                                 onClick={() => addFavLoc(elem)}>즐겨찾기 추가</Button>

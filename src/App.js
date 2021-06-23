@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react'
 import {getVLocation, getCovidStatus} from './Api'
 import StatTable from "./StatTable";
 import VaccineInfo from "./VaccineInfo";
-import LoginPanel from "./Login";
+import LoginPanel from "./LoginPanel";
 import CheerChat from "./CheerChat"
 
 import firebase from "firebase/app";
@@ -62,12 +62,12 @@ function App() {
     },[])
 
     return(
-        <html className={"whole"}>
+        <div className={"whole"}>
             <header id={"title"}>
                 <h1>코로나 정보</h1>
             </header>
 
-            <body>
+            <div>
                 <div className={"topLevel"}>
                     <div className={"leftSide"}>
                         <div id={"covidConfirmed"}>
@@ -84,8 +84,8 @@ function App() {
                         <CheerChat db={db} user={user} myChat={myChat} setMyChat={setMyChat} messages={messages} setMessages={setMessages}/>
                     </div>
                 </div>
-            </body>
-        </html>
+            </div>
+        </div>
     )
 }
 

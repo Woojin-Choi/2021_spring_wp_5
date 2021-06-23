@@ -57,9 +57,7 @@ export default function StatTable() {
                                         <TableCell align="right">{e.stdDay}</TableCell>
                                     </TableRow>
                                 )
-                            } else {
-                                return(<div></div>)
-                            }
+                            } else {}
                         })
                     }
                 </TableBody>
