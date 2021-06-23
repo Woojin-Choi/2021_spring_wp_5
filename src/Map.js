@@ -1,7 +1,6 @@
 /*global kakao*/
 import React, { useEffect } from 'react'
 import './App.css';
-import Popup from 'react-semantic-popup';
 
 const Map = (props) => {
 

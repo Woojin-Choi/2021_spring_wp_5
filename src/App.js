@@ -9,6 +9,7 @@ import "firebase/firestore";
 import {getVLocation, getCovidStatus} from './Api'
 import StatTable from "./StatTable";
 import VaccineInfo from "./VaccineInfo";
+import LoginPanel from "./Login";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBg0dSBCz--2hhDtSeLQhwM-hKKi0FitF8",
@@ -35,8 +36,6 @@ firebase.auth().onAuthStateChanged(function(user){
 
 function App() {
 
-    // const [email, setEmail] = useState(null);
-    // const [password, setPassword] = useState(null);
     const [vLocations, setVLocations] = useState([]);
     const [user, setUser] = useState(null);
     const [favoritePanel, setFavoritePanel] = useState(false);
@@ -92,66 +91,53 @@ function App() {
             })
     }
 
-
-    // const createAccount =(e)=> {
-    //     e.preventDefault();
-    //
-    //     firebase.auth().createUserWithEmailAndPassword(email, password)
-    //         .then((res)=>{
-    //             console.log(res);
+    // const loginFirebase = () => {
+    //     const provider = new firebase.auth.GoogleAuthProvider();
+    //     firebase.auth().signInWithPopup(provider)
+    //         .then((result)=>{
+    //             localStorage.setItem("LOGIN_KEY", result.user.email);
+    //             setUser(localStorage.LOGIN_KEY)
     //         })
-    //         .catch(function(error){
-    //             console.log(error);
+    //         .catch((error)=>{
+    //             const errorCode = error.code;
+    //             const errorMessage = error.message;
+    //             console.log(errorMessage);
     //         })
     // }
-
-    const loginFirebase = () => {
-        const provider = new firebase.auth.GoogleAuthProvider();
-        firebase.auth().signInWithPopup(provider)
-            .then((result)=>{
-                localStorage.setItem("LOGIN_KEY", result.user.email);
-                setUser(localStorage.LOGIN_KEY)
-            })
-            .catch((error)=>{
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorMessage);
-            })
-    }
-
-    const logoutFirebase = () => {
-        firebase.auth().signOut()
-            .then((result)=>{
-                localStorage.clear();
-                setFavoritePanel(false);
-                setUser(null);
-
-                console.log(result);
-            })
-            .catch((error)=>{
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorMessage);
-            })
-    }
-
-    const favoriteCheck = async (e) =>{
-        if(e==="u") setFavoritePanel(false);
-        else {
-            setFavoritePanel(true);
-            const myFav = [];
-            db.collection("favoriteOrg").get()
-            .then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    if(doc.data().userId === user) {
-                        myFav.push(doc.data())
-                    }
-                })
-                setFavLoc(myFav)
-                console.log(myFav)
-            })
-        }
-    }
+    //
+    // const logoutFirebase = () => {
+    //     firebase.auth().signOut()
+    //         .then((result)=>{
+    //             localStorage.clear();
+    //             setFavoritePanel(false);
+    //             setUser(null);
+    //
+    //             console.log(result);
+    //         })
+    //         .catch((error)=>{
+    //             const errorCode = error.code;
+    //             const errorMessage = error.message;
+    //             console.log(errorMessage);
+    //         })
+    // }
+    //
+    // const favoriteCheck = async (e) =>{
+    //     if(e==="u") setFavoritePanel(false);
+    //     else {
+    //         setFavoritePanel(true);
+    //         const myFav = [];
+    //         db.collection("favoriteOrg").get()
+    //         .then((querySnapshot) => {
+    //             querySnapshot.forEach((doc) => {
+    //                 if(doc.data().userId === user) {
+    //                     myFav.push(doc.data())
+    //                 }
+    //             })
+    //             setFavLoc(myFav)
+    //             console.log(myFav)
+    //         })
+    //     }
+    // }
 
     useEffect(()=>{
         getVLocation()
@@ -172,36 +158,6 @@ function App() {
         return () => clearInterval(intervalControl);
     }, [messages]);
 
-    // useEffect(()=>{ // db 내용 출력
-    //     db.collection("datas").get().then((querySanpshot)=>{
-    //         querySanpshot.forEach((doc) => {
-    //             console.log(doc.data())
-    //         })
-    //     })
-    // }, [])
-    //
-    //https://firebase.google.com/docs/firestore/manage-data/delete-data?hl=ko 삭제는 여기 참고
-
-    // useEffect(()=> {
-    //
-    //     const provider = new firebase.auth.GoogleAuthProvider();
-    //     firebase.auth().signInWithPopup(provider)
-    //         .then((result)=>{
-    //         console.log(result);
-    //         });
-    //
-    //     firebase.auth().signInWithEmailAndPassword("aa@a.com", "aa")
-    //         .then((res) => {
-    //             console.log("signed in!");
-    //             console.log(res);
-    //             firebase.user;
-    //         })
-    //         .catch(function (error) {
-    //             console.log(error);
-    //         });
-    //
-    // },[]);
-
     return(
         <html className={"whole"}>
             <header id={"title"}>
@@ -221,27 +177,23 @@ function App() {
                     </div>
 
                     <div className={"rightSide"}>
-                        <div id={"login"}>
-                            {/*<form onSubmit={createAccount}>*/}
-                            {/*    <input name={"email"} onChange={e=>setEmail(e.target.value)}/>*/}
-                            {/*    <input name={"password"} onChange={e=>setPassword(e.target.value)}/>*/}
-                            {/*    <input type={"submit"} value={"submit"}/>*/}
-                            {/*</form>*/}
-                            {localStorage.getItem("LOGIN_KEY") ?
-                                <div id={"loggedIn"}>
-                                    <span>{localStorage.getItem("LOGIN_KEY")}님 반갑습니다!</span>
-                                    <div id={"menu"}>
-                                        <Button className="rightSideBtn" id="myFavorite" onClick={()=>favoritePanel?favoriteCheck("u"):favoriteCheck("c")} variant="contained"
-                                                        color="primary">{favoritePanel?'전체 목록 보기':'즐겨찾는 병원보기'}</Button>
-                                        <Button className="rightSideBtn" id="logoutButton" onClick={logoutFirebase} variant="contained"
-                                                color="primary">로그아웃</Button>
-                                    </div>
-                                </div>
-                                :
-                                <Button id="loginButton" onClick={loginFirebase} variant="contained"
-                                        color="primary">구글아이디로 로그인</Button>
-                            }
-                        </div>
+                        <LoginPanel db={db} favoritePanel={favoritePanel} setFavoritePanel={setFavoritePanel} user={user} setUser={setUser} favLoc={favLoc} setFavLoc={setFavLoc}/>
+                        {/*<div id={"login"}>*/}
+                        {/*    {localStorage.getItem("LOGIN_KEY") ?*/}
+                        {/*        <div id={"loggedIn"}>*/}
+                        {/*            <span>{localStorage.getItem("LOGIN_KEY")}님 반갑습니다!</span>*/}
+                        {/*            <div id={"menu"}>*/}
+                        {/*                <Button className="rightSideBtn" id="myFavorite" onClick={()=>favoritePanel?favoriteCheck("u"):favoriteCheck("c")} variant="contained"*/}
+                        {/*                                color="primary">{favoritePanel?'전체 목록 보기':'즐겨찾는 병원보기'}</Button>*/}
+                        {/*                <Button className="rightSideBtn" id="logoutButton" onClick={logoutFirebase} variant="contained"*/}
+                        {/*                        color="primary">로그아웃</Button>*/}
+                        {/*            </div>*/}
+                        {/*        </div>*/}
+                        {/*        :*/}
+                        {/*        <Button id="loginButton" onClick={loginFirebase} variant="contained"*/}
+                        {/*                color="primary">구글아이디로 로그인</Button>*/}
+                        {/*    }*/}
+                        {/*</div>*/}
                         <div id={"cheerChat"}>
                             <div>
                                 <h2>전국민 응원 한마디!</h2>
