@@ -10,20 +10,20 @@ export default function VaccineInfo(props) {
 
     const [vLocations, setVLocations] = useState([]);
     const [selectedLoc, setSelectedLoc] = useState(null);
-    const [locInfo, setLocInfo] = useState({});
     const [page, setPage] = useState(1);
 
     const db = firebase.firestore();
 
     const locationCheck = (e) => {
         setSelectedLoc(e.orgZipaddr);
-        const _locInfo = {
-            "전화번호": `${e.orgTlno}`,
-            "진료시간": `${e.sttTm} ~ ${e.endTm}`,
-            "점심시간": `${e.lunchSttTm} ~ ${e.lunchEndTm}`
-        }
-        console.log(_locInfo)
-        setLocInfo(_locInfo)
+    }
+
+    const infoAlert = (e) => {
+        const _locInfo = `
+        전화번호: ${e.orgTlno}
+        진료시간:${e.sttTm} ~ ${e.endTm}, 
+        점심시간: ${e.lunchSttTm} ~ ${e.lunchEndTm}`
+        alert(_locInfo.toString());
     }
 
     const addFavLoc = (elem) => {
@@ -118,7 +118,7 @@ export default function VaccineInfo(props) {
     return(
         <div className={"vaccineInfo"}>
             <div id={"map"}>
-                <Map selectedLoc={selectedLoc} locInfo={locInfo}/>
+                <Map selectedLoc={selectedLoc}/>
             </div>
             <div id={"vaccinationLocation"}>
                 <div>
@@ -137,7 +137,6 @@ export default function VaccineInfo(props) {
                                                 <div className="locationBox" key={elem.orgcd}>
                                                     <ul className={"favInfo"}>
                                                         <li>기관명: {elem.orgnm}</li>
-                                                        <li>전화번호: {elem.orgTlno}</li>
                                                         <li>주소: {elem.orgZipaddr}</li>
                                                         <li>당일 휴무여부: {elem.hldyYn}</li>
                                                     </ul>
@@ -147,6 +146,7 @@ export default function VaccineInfo(props) {
                                                                 color="primary"
                                                                 onClick={() => locationCheck(elem)}>위치
                                                             확인</Button>
+                                                        <Button class="locationButton" onClick={() => infoAlert(elem)}>상세 정보</Button>
                                                         <Button id="favoriteDelButton" size="small"
                                                                 startIcon={<AddCircleOutlineRoundedIcon/>}
                                                                 onClick={() => delFavLoc(elem)}>즐겨찾기 삭제</Button>
@@ -159,23 +159,23 @@ export default function VaccineInfo(props) {
                             :
                             <div className="location">
                                 <div>
-                                    <h2>백신 접종처 (가나다 순)</h2>
+                                    <h2>백신 접종처</h2>
                                 </div>
                                 <div className={"locationGroup"}>
                                     {
                                         vLocations.slice(0).sort(function (a, b) {
-                                            return a.orgnm < b.orgnm ? -1 : a.orgnm > b.orgnm ? 1 : 0;
+                                            return a.orgZipaddr < b.orgZipaddr ? -1 : a.orgZipaddr > b.orgZipaddr ? 1 : 0;
                                         }).map(elem => {
                                             return (
                                                 <div className="locationBox" key={elem.orgcd}>
                                                     <ul className={"favInfo"}>
                                                         <li>기관명: {elem.orgnm}</li>
-                                                        <li>전화번호: {elem.orgTlno}</li>
                                                         <li>주소: {elem.orgZipaddr}</li>
                                                         <li>당일 휴무여부: {elem.hldyYn}</li>
                                                     </ul>
                                                     <ButtonGroup className="btnGroup" color="primary" aria-label="outlined primary button group">
                                                         <Button class="locationButton" onClick={() => locationCheck(elem)}>위치 확인</Button>
+                                                        <Button class="locationButton" onClick={() => infoAlert(elem)}>상세 정보</Button>
                                                         <Button id="favoriteAddButton" size="small"
                                                                 startIcon={<AddCircleOutlineRoundedIcon/>}
                                                                 onClick={() => addFavLoc(elem)}>즐겨찾기 추가</Button>

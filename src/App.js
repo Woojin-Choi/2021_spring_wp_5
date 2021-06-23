@@ -162,7 +162,6 @@ function App() {
                 setFavLoc(myFav)
                 console.log(myFav)
             })
-
         }
     }
 
