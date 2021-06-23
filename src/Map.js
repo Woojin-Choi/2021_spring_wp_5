@@ -25,9 +25,6 @@ const Map = (props) => {
                 let locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
                     message = '<div style="padding:10px;">GPS 기준 위치입니다</div>'; // 인포윈도우에 표시될 내용입니다
 
-                // 마커와 인포윈도우를 표시합니다
-                // displayMarker(locPosition, message);
-
                 // 마커를 생성합니다
                 let marker = new kakao.maps.Marker({
                     map: map,
@@ -114,14 +111,6 @@ const Map = (props) => {
                         map: map,
                         position: coords,
                     });
-
-                    // 인포윈도우로 장소에 대한 설명을 표시합니다
-                    // let infowindow = new kakao.maps.InfoWindow({
-                    //     content: '<div style="width:150px;text-align:center;padding:6px 0;"></div>'
-                    // });
-                    // infowindow.open(map, marker);
-
-                    // kakao.maps.event.addListener(marker, 'click', popUpInfo());
 
                     // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
                     map.setCenter(coords);
