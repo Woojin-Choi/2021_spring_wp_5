@@ -23,6 +23,7 @@ export default function LoginPanel(props) {
                     }).map(elem => loadChatBox.push(elem.chat))
                     props.setMessages(loadChatBox)
                 })
+            document.getElementById("inputMessage").value='';
         } else {
             alert("로그인 이후 사용가능합니다")
         }
@@ -52,9 +53,8 @@ export default function LoginPanel(props) {
             <div>
                 <h2>전국민 응원 한마디!</h2>
             </div>
-            <form id="chatForm" onSubmit={addMessages}>
+            <form id="chatForm" onSubmit={addMessages} onClick={({ target: { value } }) => {console.log(value)}}>
                 <TextField id="inputMessage" name="chat-message" type="text" variant="outlined" onChange={handleChange}/>
-                {console.log(props.myChat)}
                 <Button id="inputBtn" type="submit" variant={"outlined"}>입력</Button>
             </form>
             <div id={"chatBox"}>
