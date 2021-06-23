@@ -64,7 +64,7 @@ function App() {
     return(
         <div className={"whole"}>
             <header id={"title"}>
-                <h1>코로나 정보 test</h1>
+                <h1>코로나 정보</h1>
             </header>
 
             <div>
